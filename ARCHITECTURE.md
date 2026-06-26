@@ -1,418 +1,118 @@
-# 🏎️ GridPulse — Architecture
+# Architecture — GridPulse
 
-> F1 Tracker iOS — Écuries, Grands Prix, Classements
+## Tech Stack
 
-## App Name
-
-**GridPulse** — le pulse du départ. Nom punchy, français-friendly, vibe F1.
-
-## Stack
-
-| Layer | Choix |
-|-------|-------|
+| Layer | Choice |
+|-------|--------|
 | Language | Swift 6 |
 | UI | SwiftUI, iOS 26+ (Liquid Glass) |
-| Min target | iOS 26.0 |
-| Architecture | MVVM + Repository pattern |
+| Architecture | MVVM + Repository |
 | Network | URLSession + async/await |
-| Cache | SwiftData (local DB) |
-| APIs | Jolpica F1 (historique) + OpenF1 (live/rich) |
-| CI/CD | Xcode Cloud (SANS EXCEPTION) |
-| Widgets | WidgetKit + Live Activity |
-| i18n | Localizable.xcstrings (EN base + FR) |
+| Cache | SwiftData (offline-first) |
+| APIs | Jolpica F1 (historical) + OpenF1 (live) |
+| CI/CD | Xcode Cloud |
+| i18n | Localizable.xcstrings (EN + FR) |
 
-## Monorepo Structure
-
-```
-GridPulse/
-├── GridPulse-iOS/              # Main iOS app target
-│   ├── App/
-│   │   ├── GridPulseApp.swift
-│   │   └── AppDelegate.swift
-│   ├── Views/
-│   │   ├── Home/
-│   │   │   ├── HomeView.swift
-│   │   │   ├── NextRaceCard.swift
-│   │   │   └── RecentResultsCard.swift
-│   │   ├── Schedule/
-│   │   │   ├── ScheduleView.swift
-│   │   │   └── RaceDetailView.swift
-│   │   ├── Standings/
-│   │   │   ├── DriverStandingsView.swift
-│   │   │   ├── ConstructorStandingsView.swift
-│   │   │   └── DriverDetailView.swift
-│   │   ├── Race/
-│   │   │   ├── RaceWeekendView.swift
-│   │   │   ├── SessionResultView.swift
-│   │   │   └── StartingGridView.swift
-│   │   └── Settings/
-│   │       └── SettingsView.swift
-│   ├── ViewModels/
-│   │   ├── HomeViewModel.swift
-│   │   ├── ScheduleViewModel.swift
-│   │   ├── StandingsViewModel.swift
-│   │   └── RaceViewModel.swift
-│   ├── Models/
-│   │   ├── Driver.swift
-│   │   ├── Constructor.swift
-│   │   ├── Circuit.swift
-│   │   ├── Race.swift
-│   │   ├── Session.swift
-│   │   ├── Standing.swift
-│   │   └── LapData.swift
-│   ├── Services/
-│   │   ├── JolpicaService.swift
-│   │   ├── OpenF1Service.swift
-│   │   └── CacheService.swift
-│   ├── Design/
-│   │   ├── TeamColors.swift
-│   │   ├── GridPulseTheme.swift
-│   │   └── Components/
-│   │       ├── TeamColorBadge.swift
-│   │       ├── PositionChip.swift
-│   │       ├── LapTimeView.swift
-│   │       └── GlassCard.swift
-│   └── Resources/
-│       ├── Assets.xcassets
-│       └── Localizable.xcstrings
-├── GridPulse-Widget/            # Home Screen + Lock Screen widgets
-│   ├── NextRaceWidget.swift
-│   ├── StandingsWidget.swift
-│   └── GridPulseWidgetBundle.swift
-├── GridPulse-LiveActivity/      # Live Activity for race weekends
-│   ├── RaceLiveActivity.swift
-│   └── RaceLiveActivityAttributes.swift
-├── GridPulse-Shared/            # Shared models & services
-│   ├── Models/
-│   ├── Services/
-│   └── Extensions/
-├── GridPulse-Tests/
-│   ├── UnitTests/
-│   ├── UITests/
-│   └── IntegrationTests/
-├── ci_scripts/                  # Xcode Cloud CI
-│   └── ci_post_clone.sh
-├── fastlane/                    # Fastlane for test automation
-├── docs/
-│   ├── ARCHITECTURE.md
-│   ├── TESTING.md
-│   └── API.md
-├── .gitignore
-├── .swiftlint.yml
-├── .swiftformat
-└── README.md
-```
-
-## Screens & Navigation
+## Module Structure
 
 ```
-TabView (Glass TabBar iOS 26)
-├── 🏠 Home
-│   ├── Next race countdown (hero card)
-│   ├── Recent results
-│   └── Current standings snapshot
-├── 🏁 Schedule
-│   ├── Season calendar (list + circuit map)
-│   ├── Race detail
-│   │   ├── Sessions (FP1/2/3, Q, Sprint, Race)
-│   │   ├── Starting grid
-│   │   └── Results per session
-│   └── Circuit info (layout, stats)
-├── 📊 Standings
-│   ├── Drivers championship
-│   │   └── Driver detail (bio, stats, season results)
-│   └── Constructors championship
-│       └── Constructor detail (car, drivers, stats)
-└── ⚙️ Settings
-    ├── Notifications (race start, results)
-    ├── Favorite driver/constructor
-    └── About
+GridPulse-iOS/
+├── App/
+│   ├── GridPulseApp.swift      # Entry point, ModelContainer
+│   └── ContentView.swift        # TabView (Home, Schedule, Standings, Settings)
+├── Models/
+│   ├── Driver.swift             # @Model driver data
+│   ├── Constructor.swift        # @Model constructor data
+│   ├── Circuit.swift            # @Model circuit data
+│   ├── Race.swift               # @Model race data
+│   ├── Session.swift            # @Model + SessionType enum
+│   ├── Standing.swift           # @Model DriverStanding, ConstructorStanding
+│   └── LapData.swift            # @Model lap data
+├── Services/
+│   ├── JolpicaService.swift     # Historical F1 API (DTOs + mapping)
+│   ├── OpenF1Service.swift      # Live F1 API (DTOs + mapping)
+│   └── CacheService.swift       # SwiftData TTL cache
+├── ViewModels/
+│   ├── HomeViewModel.swift      # @MainActor @Observable
+│   ├── ScheduleViewModel.swift   # @MainActor @Observable
+│   ├── StandingsViewModel.swift   # @MainActor @Observable
+│   └── RaceViewModel.swift       # @MainActor @Observable
+├── Views/
+│   ├── Home/HomeView.swift
+│   ├── Schedule/ScheduleView.swift, RaceDetailView.swift
+│   ├── Standings/StandingsTabView.swift, DriverStandingsView.swift,
+│   │   ConstructorStandingsView.swift, DriverDetailView.swift
+│   ├── Race/RaceWeekendView.swift
+│   └── Settings/SettingsView.swift
+├── Design/
+│   ├── GridPulseTheme.swift     # Colors, Typography, Spacing, Animation
+│   ├── TeamColors.swift          # Team enum + Color(hex:) + teamColor(for:)
+│   └── Components/
+│       ├── GlassCard.swift
+│       ├── PositionChip.swift
+│       ├── TeamColorBadge.swift
+│       └── LapTimeView.swift
+└── Resources/
+    ├── Assets.xcassets
+    ├── Localizable.xcstrings
+    ├── Info.plist
+    └── GridPulse.entitlements
 ```
 
-## Data Models
+## API Strategy
 
-### Driver
-```swift
-struct Driver: Identifiable, Codable {
-    let id: String // driver_number as String
-    let number: Int
-    let code: String // "VER", "HAM", etc.
-    let firstName: String
-    let lastName: String
-    let nationality: String
-    let teamColor: String // hex color
-    let constructorId: String
-}
-```
+### Jolpica F1 (Historical)
+- Base URL: `https://api.jolpica.com/ergast/f1/`
+- Endpoints: drivers, constructors, standings, races, results, qualifying, circuits
+- Data: Season standings, race calendar, historical results
 
-### Constructor
-```swift
-struct Constructor: Identifiable, Codable {
-    let id: String
-    let name: String
-    let fullName: String
-    let nationality: String
-    let color: String // primary team color (hex)
-    let colorSecondary: String
-}
-```
+### OpenF1 (Live)
+- Base URL: `https://api.openf1.org/v1/`
+- Endpoints: meetings, sessions, drivers, results, grid, laps, pits, weather, race_control
+- Data: Real-time session data, positions, lap times, weather
 
-### Circuit
-```swift
-struct Circuit: Identifiable, Codable {
-    let id: String
-    let name: String
-    let locality: String
-    let country: String
-    let latitude: Double
-    let longitude: Double
-    let circuitLength: String // e.g. "5.412 km"
-    let laps: Int
-    let lapRecord: String
-}
-```
+### Cache Strategy (CacheService)
+- SwiftData-backed with TTL
+- Offline-first: cache → network → expired cache fallback
+- TTL: standings 1h, schedule 24h, results 24h, live data no cache
 
-### Race (Meeting)
-```swift
-struct Race: Identifiable, Codable {
-    let id: String // meeting_key or round number
-    let name: String // "Monaco Grand Prix"
-    let circuitId: String
-    let date: Date
-    let sessions: [Session]
-    let season: Int
-    let round: Int
-}
-```
+## Design System
 
-### Session
-```swift
-struct Session: Identifiable, Codable {
-    let id: String // session_key
-    let raceId: String
-    let type: SessionType // .fp1, .fp2, .fp3, .qualifying, .sprint, .race
-    let date: Date
-    let duration: TimeInterval?
-}
-enum SessionType: String, Codable {
-    case fp1, fp2, fp3, qualifying, sprint, race
-}
-```
-
-### Standing
-```swift
-struct DriverStanding: Identifiable, Codable {
-    let id: String
-    let driverId: String
-    let position: Int
-    let points: Double
-    let wins: Int
-    let constructorId: String
-}
-
-struct ConstructorStanding: Identifiable, Codable {
-    let id: String
-    let constructorId: String
-    let position: Int
-    let points: Double
-    let wins: Int
-}
-```
-
-### LapData (OpenF1 live)
-```swift
-struct LapData: Identifiable, Codable {
-    let id: String
-    let driverNumber: Int
-    let lapNumber: Int
-    let lapDuration: Double? // seconds
-    let sector1: Double?
-    let sector2: Double?
-    let sector3: Double?
-    let isPitOutLap: Bool
-}
-```
-
-## API Layer
-
-### Jolpica F1 API (Historical)
-```
-Base URL: https://api.jolpica.com/ergast/f1/
-
-Endpoints:
-GET /drivers/{driverId}/driverStandings.json    → Driver standings
-GET /constructors/{constructorId}/constructorStandings.json → Constructor standings
-GET /{season}/races.json                         → Race calendar
-GET /{season}/{round}/results.json               → Race results
-GET /{season}/{round}/qualifying.json            → Qualifying results
-GET /{season}/{round}/sprint.json                → Sprint results
-GET /circuits.json                               → All circuits
-GET /drivers.json                                → All drivers
-GET /constructors.json                           → All constructors
-GET /current.json                                → Current season info
-```
-
-### OpenF1 API (Live & Rich)
-```
-Base URL: https://api.openf1.org/v1/
-
-Endpoints (key ones):
-GET /sessions?meeting_key=latest                  → Current/next session
-GET /meetings?year=2026                           → Season meetings
-GET /drivers?session_key=latest                   → Current drivers
-GET /session_result?session_key=XXXX              → Session results
-GET /starting_grid?session_key=XXXX               → Starting grid
-GET /championship_drivers?session_key=XXXX         → Driver standings
-GET /championship_teams?session_key=XXXX           → Constructor standings
-GET /laps?session_key=XXXX&driver_number=1         → Lap times
-GET /pit?session_key=XXXX                         → Pit stops
-GET /weather?session_key=XXXX                      → Weather
-GET /race_control?session_key=XXXX                 → Race control messages
-GET /car_data?session_key=XXXX&driver_number=1     → Car telemetry
-```
-
-### Caching Strategy
-- **SwiftData** local DB for all fetched data
-- **TTL** :
-  - Standings: 1 hour
-  - Schedule: 24 hours
-  - Session results: 5 min (during race weekend), 24h (otherwise)
-  - Live telemetry: no cache (real-time)
-- **Offline-first** : app fonctionne avec données en cache
-- **Smart refresh** : background task + pull-to-refresh
-
-## Design System — GridPulse Theme
-
-### Philosophy
-Minimalisme automobile. Lignes nettes, couleurs d'écurie comme accent, glass morphism iOS 26. Pas de chrome, pas de 3D — flat, bold, racing.
-
-### Colors
-```swift
-// Team Colors (2026 season)
-extension TeamColors {
-    static let redBull = "#3671C6"      // Blue
-    static let ferrari = "#E8002D"       // Red
-    static let mercedes = "#27F4D2"      // Teal
-    static let mclaren = "#FF8000"       // Papaya
-    static let astonMartin = "#229971"   // British Racing Green
-    static let alpine = "#FF87BC"        // Pink
-    static let williams = "#64C4FF"      // Blue
-    static let haas = "#B6BABD"          // Gray
-    static let rb = "#6692FF"            // Blue
-    static let sauber = "#52E252"        // Green
-}
-
-// App Palette
-extension GridPulseTheme {
-    static let background = Color.black
-    static let surface = Color(.systemGray6) // Glass base
-    static let onSurface = Color.white
-    static let accent = Color("GridRed")     // F1 red accent
-    static let onAccent = Color.white
-    static let success = Color.green
-    static let warning = Color.orange
-    static let error = Color.red
-}
-```
+### Colors (Dark-first)
+- `gridBackground` #0A0A0A
+- `gridSurface` #1C1C1E
+- `gridCard` #2C2C2E
+- `gridAccent` #3671C6 (F1 Blue)
+- `gridRed` #E10600 (F1 Red)
+- `gridOnSurface` #FFFFFF
+- `gridOnSurfaceSecondary` #8E8E93
+- `gridSuccess` #34C759
+- `gridWarning` #FF9500
 
 ### Typography
-```swift
-// SF Pro with racing weight hierarchy
-extension GridPulseTypography {
-    static let heroTitle = Font.system(.largeTitle, weight: .heavy, design: .default)
-    static let sectionTitle = Font.system(.title2, weight: .bold)
-    static let cardTitle = Font.system(.title3, weight: .semibold)
-    static let body = Font.system(.body, weight: .regular)
-    static let caption = Font.system(.caption, weight: .medium)
-    static let mono = Font.system(.body, weight: .regular, design: .monospaced) // Lap times
-}
-```
+- `heroTitle` 32pt heavy
+- `sectionTitle` 24pt bold
+- `cardTitle` 20pt semibold
+- `body` 16pt regular
+- `caption` 14pt medium
+- `mono` 14pt monospaced
 
-### Liquid Glass Components
-- `GlassCard` — `.glassEffect()` sur tous les cards
-- `TeamColorBadge` — badge pilote avec couleur d'écurie
-- `PositionChip` — P1, P2, P3 avec or/argent/bronze
-- `LapTimeView` — temps formaté en monospaced
-- `CountdownView` — countdown animé pour prochain GP
+### Spacing
+- xs=4, sm=8, md=16, lg=24, xl=32
 
-### Navigation
-- `TabView` avec iOS 26 glass tab bar
-- `NavigationStack` avec glass toolbar
-- Transitions : `.navigationTransition(.zoom)` sur les cards
+### Liquid Glass (iOS 26+)
+- `GlassCard` component: `.glassEffect()` iOS 26+, `.ultraThinMaterial` fallback
+- `TabView` with `.glassTabView()` iOS 26+
 
-## Live Activity
+## Concurrency
+- Swift 6 strict concurrency (`SWIFT_STRICT_CONCURRENCY=complete`)
+- ViewModels: `@MainActor @Observable`
+- Services: `@unchecked Sendable` (URLSession is thread-safe)
+- Models: `@Model` (non-Sendable, confined to MainActor)
 
-```swift
-struct RaceLiveActivityAttributes: ActivityAttributes {
-    let raceName: String
-    let circuitName: String
-}
-
-// Dynamic content:
-// - Position changes
-// - Lap count
-// - Gap to leader
-// - Pit stop alerts
-// - Flag status (yellow, red, SC)
-```
-
-## Widgets
-
-1. **NextRaceWidget** — countdown vers le prochain GP
-2. **DriverStandingsWidget** — top 5 drivers avec team colors
-3. **ConstructorStandingsWidget** — top 3 constructors
-4. **RaceResultWidget** — résultat du dernier GP
-
-## Phase de Développement
-
-### Phase 1 — Foundation (v0.1.0)
-- [ ] Xcode project setup (GridPulse-iOS, GridPulse-Shared, GridPulse-Tests)
-- [ ] SwiftData models
-- [ ] Jolpica API service (drivers, constructors, schedule, standings)
-- [ ] Home tab (next race countdown, recent results, standings snapshot)
-- [ ] Schedule tab (calendar list)
-- [ ] Standings tab (drivers + constructors)
-- [ ] Team colors design system
-- [ ] Glass components (GlassCard, TeamColorBadge, PositionChip)
-
-### Phase 2 — Race Weekend (v0.2.0)
-- [ ] Race detail view (sessions, results)
-- [ ] OpenF1 integration (session results, starting grid)
-- [ ] Driver detail view (bio, stats)
-- [ ] Constructor detail view
-- [ ] Circuit info
-
-### Phase 3 — Live (v0.3.0)
-- [ ] OpenF1 live data (live positions, lap times, race control)
-- [ ] Live Activity (race weekend)
-- [ ] Push notifications (race start, results)
-- [ ] Widgets (4 variants)
-
-### Phase 4 — Polish (v1.0.0)
-- [ ] i18n (EN + FR)
-- [ ] Accessibility (VoiceOver, Dynamic Type)
-- [ ] iPad adaptation
-- [ ] App Store Connect setup
-- [ ] TestFlight beta
-- [ ] App Store submission
-
-## Xcode Cloud CI/CD
-
-**OBLIGATOIRE** pour tout l'écosystème Apple. Pas de GHA.
-
-```yaml
-# ci_scripts/ci_post_clone.sh
-#!/bin/sh
-set -e
-brew install swiftlint swiftformat
-swiftlint lint --quiet
-swiftformat --lint .
-```
-
-## Conventions
-
-- **Branches** : `feature/GRID-xxx-description`
-- **Commits** : Conventional (`feat:`, `fix:`, `docs:`, `chore:`)
-- **Co-authored** : chaque agent signe `Co-authored-by: Agent <agent@ef-engineering.corp>`
-- **Tests** : Unit + UI + Integration, scaffold obligatoire pour chaque feature
-- **iOS 26+** : Liquid Glass obligatoire, `#if compiler(>=6.2)` pour compat Xcode 16
+## Build Info
+- Bundle ID: `com.ef-engineering.gridpulse`
+- Team: `Z2PN67EL4F`
+- Min deployment: iOS 26.0
+- Swift version: 6
+- XcodeGen: `project.yml`
