@@ -19,6 +19,7 @@
 		565F9C09C4FB0B79A73608C1 /* RaceWeekendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC37BB8AA0DF06C297D3593 /* RaceWeekendView.swift */; };
 		64D87BF35B449407FE8517E7 /* DriverStandingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91E470E2F9DAB22D5239BC4 /* DriverStandingsView.swift */; };
 		654639D56C3EDB442417D1FD /* StandingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAF757DB9C885FF41275227 /* StandingsViewModel.swift */; };
+		910798C2EF18B61A0ADE2718 /* CircuitDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6FF490C504C7CD73FCBF70 /* CircuitDetailView.swift */; };
 		982B3DA7FA57C8CADB0358A4 /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07A7FC0DD5439AFE29B63E5 /* CacheService.swift */; };
 		9C291A6D87341128CB36CF8E /* RaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719684313A3CF0666E8004E /* RaceViewModel.swift */; };
 		A221EE963C353BAFE3525584 /* TeamColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94577FCDE5BFC0A5045F446B /* TeamColors.swift */; };
@@ -89,6 +90,7 @@
 		BE1874ECBEB7C1DBC6D245CD /* OpenF1Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenF1Service.swift; sourceTree = "<group>"; };
 		BF6D30D0D9D22EA627F003EE /* DriverDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverDetailView.swift; sourceTree = "<group>"; };
 		C19D29667D20DC09D7ED333E /* GlassCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassCard.swift; sourceTree = "<group>"; };
+		CB6FF490C504C7CD73FCBF70 /* CircuitDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitDetailView.swift; sourceTree = "<group>"; };
 		D0E793F5EFB151405F56D9E6 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		D72042C28D0A25FD409B0049 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		E4478D9A48BE93146A224D41 /* StandingsTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingsTabView.swift; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 		E2CB66E6139A72BFA03DBE34 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F3981D852406F49F4525EEC8 /* Circuit */,
 				933E2FB391C36DCF7F3823B3 /* Favorites */,
 				DA04244A5E6E94DC83473F0A /* Home */,
 				55776B623933E94BA2765BD1 /* Race */,
@@ -306,6 +309,14 @@
 			children = (
 			);
 			path = UITests;
+			sourceTree = "<group>";
+		};
+		F3981D852406F49F4525EEC8 /* Circuit */ = {
+			isa = PBXGroup;
+			children = (
+				CB6FF490C504C7CD73FCBF70 /* CircuitDetailView.swift */,
+			);
+			path = Circuit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -404,6 +415,7 @@
 			files = (
 				982B3DA7FA57C8CADB0358A4 /* CacheService.swift in Sources */,
 				45D3AECF3835163F36255467 /* Circuit.swift in Sources */,
+				910798C2EF18B61A0ADE2718 /* CircuitDetailView.swift in Sources */,
 				2E05352AA80EE3CBC7492B7A /* Constructor.swift in Sources */,
 				C75C87235D0EB78ED3C0226A /* ConstructorStandingsView.swift in Sources */,
 				F82A0AF2A6C5554F34FE4A97 /* ContentView.swift in Sources */,
