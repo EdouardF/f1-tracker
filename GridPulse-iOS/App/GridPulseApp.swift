@@ -30,6 +30,11 @@ struct GridPulseApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .task {
+                    if UserDefaults.standard.bool(forKey: "notificationsEnabled") {
+                        await NotificationsManager.shared.requestAuthorization()
+                    }
+                }
         }
         .modelContainer(modelContainer)
     }

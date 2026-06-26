@@ -27,6 +27,7 @@
 		AC3F9D0C79F41C5643D6A8E6 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 6755080A4370A6E17F41CF97 /* Localizable.xcstrings */; };
 		B073D89BB01CFD9ED51A59F8 /* GridPulseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9115D0F709EE852C58DCAAF2 /* GridPulseTests.swift */; };
 		B22142AD703CA3DDD4F09B33 /* GridPulseTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF31C1B5054AC520B539E72 /* GridPulseTheme.swift */; };
+		B369094A65B5C17F8AEF0647 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57914C0980F2C8C627CD4041 /* NotificationsManager.swift */; };
 		B595B4B16E92DEE8A720F8DD /* TeamColorBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3985D4885A001C255C736F06 /* TeamColorBadge.swift */; };
 		BDEEF591CA58D6E2BB9666C9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAFCBAE6E4CD8D350AE4577 /* SettingsView.swift */; };
 		C2260185EB31204E230B8062 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9202682A76F1F970C6E8F644 /* ScheduleView.swift */; };
@@ -68,6 +69,7 @@
 		3985D4885A001C255C736F06 /* TeamColorBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamColorBadge.swift; sourceTree = "<group>"; };
 		39A4878FCA4E611FD2152B70 /* LapData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LapData.swift; sourceTree = "<group>"; };
 		519B8614BE2780451B6710C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		57914C0980F2C8C627CD4041 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		5FAFCBAE6E4CD8D350AE4577 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		6755080A4370A6E17F41CF97 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		6789DDCE7B3EF5C56453AA35 /* GridPulse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GridPulse.entitlements; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 			children = (
 				F07A7FC0DD5439AFE29B63E5 /* CacheService.swift */,
 				88F299508579A1C8160E5052 /* JolpicaService.swift */,
+				57914C0980F2C8C627CD4041 /* NotificationsManager.swift */,
 				BE1874ECBEB7C1DBC6D245CD /* OpenF1Service.swift */,
 			);
 			path = Services;
@@ -417,6 +420,7 @@
 				1480103C921588FBFE09BC37 /* JolpicaService.swift in Sources */,
 				E80F80B7217612C88E903ECE /* LapData.swift in Sources */,
 				06C0A51302FB5E0C96F85EBA /* LapTimeView.swift in Sources */,
+				B369094A65B5C17F8AEF0647 /* NotificationsManager.swift in Sources */,
 				D584759002F4C8B23F3A58CB /* OpenF1Service.swift in Sources */,
 				32F9773A67E2BE5901803DCF /* PositionChip.swift in Sources */,
 				E177199DAFD68E5B0EBA7BD3 /* Race.swift in Sources */,
