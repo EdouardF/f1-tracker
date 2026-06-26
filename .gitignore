@@ -1,40 +1,58 @@
 # Xcode
 build/
 DerivedData/
+*.xcodeproj/project.xcworkspace/xcuserdata/
 *.xcodeproj/xcuserdata/
 *.xcworkspace/xcuserdata/
-*.xcodeproj/project.xcworkspace/xcshareddata/xccheckpoints/
-*.xcworkspace/xcshareddata/xccheckpoints/
-*.pbxuser
-*.mode1v3
-*.mode2v3
-*.perspectivev3
-*.perspectivev3
+*.xcworkspace/!*.xcworkspace/contents.xcworkspacedata
 xcuserdata/
+*.xccheckout
 *.moved-aside
 *.xcuserstate
-*.xccheckout
+*.xcscmblueprint
+*.xcworkspace
+!*.xcworkspace/contents.xcworkspacedata
 
 # Swift Package Manager
 .build/
+.swiftpm/
 Packages/
+Package.pins
 Package.resolved
+*.xcodeproj/
 
 # CocoaPods
 Pods/
 
 # Carthage
 Carthage/Build/
+Carthage/Checkouts/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
 
 # macOS
 .DS_Store
 .AppleDouble
 .LSOverride
 ._*
-.Spotlight-V100
-.Trashes
 
-# Misc
+# IDEs
 *.swp
-*.lock
-*.log
+*.swo
+*~
+.idea/
+
+# Secrets
+*.env
+.env
+*.p12
+*.mobileprovision
+GoogleService-Info.plist
+
+# Test artifacts
+*.test_output/
+coverage/

@@ -1,0 +1,37 @@
+# SwiftFormat Configuration - GridPulse
+# https://github.com/nicklockwood/SwiftFormat
+
+# Version
+swiftversion 6.0
+
+# Indentation
+indent 4
+
+# Wrapping
+wraparguments before-first
+wrapcollections before-first
+
+# Sorting
+sortedimports yes
+
+# Style
+nospaceoperators
+typeattributes prev-line
+
+# Empty
+noemptyblock
+
+# Range
+operatorfunc spaced
+
+# Self
+self remove
+
+# Trailing commas
+commas always
+
+# Trailing space
+trailingclosures
+
+# File header - disabled, we use our own
+header ignore
