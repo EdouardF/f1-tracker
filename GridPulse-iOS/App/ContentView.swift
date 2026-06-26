@@ -7,6 +7,7 @@ struct ContentView: View {
         case home = "Home"
         case schedule = "Schedule"
         case standings = "Standings"
+        case favorites = "Favorites"
         case settings = "Settings"
 
         var icon: String {
@@ -14,6 +15,7 @@ struct ContentView: View {
             case .home: return "house.fill"
             case .schedule: return "flag.checkered"
             case .standings: return "chart.bar.fill"
+            case .favorites: return "star.fill"
             case .settings: return "gearshape.fill"
             }
         }
@@ -39,6 +41,12 @@ struct ContentView: View {
                 }
                 .tag(Tab.standings)
 
+            FavoritesView()
+                .tabItem {
+                    Label(Tab.favorites.rawValue, systemImage: Tab.favorites.icon)
+                }
+                .tag(Tab.favorites)
+
             SettingsView()
                 .tabItem {
                     Label(Tab.settings.rawValue, systemImage: Tab.settings.icon)
@@ -51,5 +59,5 @@ struct ContentView: View {
 // MARK: - Preview
 #Preview {
     ContentView()
-        .modelContainer(for: [Driver.self, Constructor.self, Race.self, CacheEntry.self])
+        .modelContainer(for: [Driver.self, Constructor.self, Race.self, CacheEntry.self, FavoriteDriver.self, FavoriteConstructor.self])
 }

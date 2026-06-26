@@ -10,6 +10,7 @@
 		02769992BA564DBF4D753CD7 /* GlassCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19D29667D20DC09D7ED333E /* GlassCard.swift */; };
 		06C0A51302FB5E0C96F85EBA /* LapTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8126742462A9A9751B36B4A /* LapTimeView.swift */; };
 		1480103C921588FBFE09BC37 /* JolpicaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F299508579A1C8160E5052 /* JolpicaService.swift */; };
+		20C06271BCC21F5888801443 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8032860FFD76DCED7685E1C8 /* Favorite.swift */; };
 		232C99969A67BB5FF054F073 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72042C28D0A25FD409B0049 /* HomeViewModel.swift */; };
 		25913870B5F8B3A5759D53C9 /* StandingsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4478D9A48BE93146A224D41 /* StandingsTabView.swift */; };
 		2E05352AA80EE3CBC7492B7A /* Constructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0DAFCFD51771E036E5B52A /* Constructor.swift */; };
@@ -36,6 +37,7 @@
 		D3333CD1010089E1CA2B8508 /* GridPulseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3861A0090D1050822B7DD7AB /* GridPulseApp.swift */; };
 		D55F2DDDBD4B334305842547 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60CB3E6235B0317B831B27A /* HomeView.swift */; };
 		D584759002F4C8B23F3A58CB /* OpenF1Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1874ECBEB7C1DBC6D245CD /* OpenF1Service.swift */; };
+		D88552426CB587F713A49340 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12465CFE53CFF03819AD0559 /* FavoritesView.swift */; };
 		DA1793EE986E54539C48AA62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 519B8614BE2780451B6710C4 /* Assets.xcassets */; };
 		E16789F5DA31C12D2E0F99C0 /* ScheduleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38405F8AEAC4FB9A8AB8AD5F /* ScheduleViewModel.swift */; };
 		E177199DAFD68E5B0EBA7BD3 /* Race.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263D21F3B13DFCB427ABD6F4 /* Race.swift */; };
@@ -58,6 +60,7 @@
 		0719684313A3CF0666E8004E /* RaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceViewModel.swift; sourceTree = "<group>"; };
 		08BA1FD687D57EA063020A0C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0C3A4C92F44E492F17BD02AC /* Circuit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Circuit.swift; sourceTree = "<group>"; };
+		12465CFE53CFF03819AD0559 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		263D21F3B13DFCB427ABD6F4 /* Race.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Race.swift; sourceTree = "<group>"; };
 		2E1A440BC1176626D2E82FF0 /* Driver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Driver.swift; sourceTree = "<group>"; };
 		38405F8AEAC4FB9A8AB8AD5F /* ScheduleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewModel.swift; sourceTree = "<group>"; };
@@ -72,6 +75,7 @@
 		6BC37BB8AA0DF06C297D3593 /* RaceWeekendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceWeekendView.swift; sourceTree = "<group>"; };
 		6F5E38DB6812637F9C6F346D /* GridPulse-Tests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = "GridPulse-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CADA839101E4542B9DE9B61 /* GridPulse.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = GridPulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8032860FFD76DCED7685E1C8 /* Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
 		88F299508579A1C8160E5052 /* JolpicaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JolpicaService.swift; sourceTree = "<group>"; };
 		9115D0F709EE852C58DCAAF2 /* GridPulseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridPulseTests.swift; sourceTree = "<group>"; };
 		9202682A76F1F970C6E8F644 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
@@ -186,6 +190,7 @@
 				0C3A4C92F44E492F17BD02AC /* Circuit.swift */,
 				6A0DAFCFD51771E036E5B52A /* Constructor.swift */,
 				2E1A440BC1176626D2E82FF0 /* Driver.swift */,
+				8032860FFD76DCED7685E1C8 /* Favorite.swift */,
 				39A4878FCA4E611FD2152B70 /* LapData.swift */,
 				263D21F3B13DFCB427ABD6F4 /* Race.swift */,
 				D0E793F5EFB151405F56D9E6 /* Session.swift */,
@@ -235,6 +240,14 @@
 			path = Standings;
 			sourceTree = "<group>";
 		};
+		933E2FB391C36DCF7F3823B3 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				12465CFE53CFF03819AD0559 /* FavoritesView.swift */,
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
 		9869D6573E679F69995D3BF7 /* Design */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,6 +288,7 @@
 		E2CB66E6139A72BFA03DBE34 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				933E2FB391C36DCF7F3823B3 /* Favorites */,
 				DA04244A5E6E94DC83473F0A /* Home */,
 				55776B623933E94BA2765BD1 /* Race */,
 				D880B7EEA55C3969BA4FA299 /* Schedule */,
@@ -393,6 +407,8 @@
 				D1721736CA124E9DB64531E1 /* Driver.swift in Sources */,
 				A2D0CB45C3A309FEE857C389 /* DriverDetailView.swift in Sources */,
 				64D87BF35B449407FE8517E7 /* DriverStandingsView.swift in Sources */,
+				20C06271BCC21F5888801443 /* Favorite.swift in Sources */,
+				D88552426CB587F713A49340 /* FavoritesView.swift in Sources */,
 				02769992BA564DBF4D753CD7 /* GlassCard.swift in Sources */,
 				D3333CD1010089E1CA2B8508 /* GridPulseApp.swift in Sources */,
 				B22142AD703CA3DDD4F09B33 /* GridPulseTheme.swift in Sources */,

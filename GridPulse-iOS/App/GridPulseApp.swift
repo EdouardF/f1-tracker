@@ -16,7 +16,9 @@ struct GridPulseApp: App {
                 DriverStanding.self,
                 ConstructorStanding.self,
                 LapData.self,
-                CacheEntry.self
+                CacheEntry.self,
+                FavoriteDriver.self,
+                FavoriteConstructor.self
             ])
             let config = ModelConfiguration(isStoredInMemoryOnly: false)
             self.modelContainer = try ModelContainer(for: schema, configurations: [config])
