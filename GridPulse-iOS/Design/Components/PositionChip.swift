@@ -2,13 +2,13 @@ import SwiftUI
 
 struct PositionChip: View {
     let position: Int
-    let style: PositionStyle.ChipStyle
+    let style: ChipStyle
 
     enum ChipStyle {
         case circle, pill, square
     }
 
-    init(position: Int, style: PositionStyle.ChipStyle = .circle) {
+    init(position: Int, style: ChipStyle = .circle) {
         self.position = position
         self.style = style
     }

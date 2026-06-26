@@ -91,6 +91,7 @@
 		E91E470E2F9DAB22D5239BC4 /* DriverStandingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverStandingsView.swift; sourceTree = "<group>"; };
 		EDAF757DB9C885FF41275227 /* StandingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingsViewModel.swift; sourceTree = "<group>"; };
 		F07A7FC0DD5439AFE29B63E5 /* CacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheService.swift; sourceTree = "<group>"; };
+		F8B221A4FC1C5774BCD89A57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -166,6 +167,7 @@
 			children = (
 				519B8614BE2780451B6710C4 /* Assets.xcassets */,
 				6789DDCE7B3EF5C56453AA35 /* GridPulse.entitlements */,
+				F8B221A4FC1C5774BCD89A57 /* Info.plist */,
 				6755080A4370A6E17F41CF97 /* Localizable.xcstrings */,
 			);
 			path = Resources;

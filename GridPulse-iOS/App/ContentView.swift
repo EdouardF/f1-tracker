@@ -21,25 +21,30 @@ struct ContentView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            Tab("Home", systemImage: Tab.home.icon, value: Tab.home) {
-                HomeView()
-            }
+            HomeView()
+                .tabItem {
+                    Label(Tab.home.rawValue, systemImage: Tab.home.icon)
+                }
+                .tag(Tab.home)
 
-            Tab("Schedule", systemImage: Tab.schedule.icon, value: Tab.schedule) {
-                ScheduleView()
-            }
+            ScheduleView()
+                .tabItem {
+                    Label(Tab.schedule.rawValue, systemImage: Tab.schedule.icon)
+                }
+                .tag(Tab.schedule)
 
-            Tab("Standings", systemImage: Tab.standings.icon, value: Tab.standings) {
-                StandingsTabView()
-            }
+            StandingsTabView()
+                .tabItem {
+                    Label(Tab.standings.rawValue, systemImage: Tab.standings.icon)
+                }
+                .tag(Tab.standings)
 
-            Tab("Settings", systemImage: Tab.settings.icon, value: Tab.settings) {
-                SettingsView()
-            }
+            SettingsView()
+                .tabItem {
+                    Label(Tab.settings.rawValue, systemImage: Tab.settings.icon)
+                }
+                .tag(Tab.settings)
         }
-        #if compiler(>=6.2)
-        .tabViewStyle(.glassTabView)
-        #endif
     }
 }
 

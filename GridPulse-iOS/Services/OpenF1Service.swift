@@ -75,7 +75,7 @@ struct SessionDTO: Decodable, Sendable {
     }
 }
 
-struct DriverDTO: Decodable, Sendable {
+struct OpenF1DriverDTO: Decodable, Sendable {
     let driverNumber: Int?
     let fullName: String?
     let firstName: String?
@@ -272,7 +272,6 @@ struct ChampionshipTeamDTO: Decodable, Sendable {
 }
 
 // MARK: - Service
-@MainActor
 final class OpenF1Service: @unchecked Sendable {
     static let shared = OpenF1Service()
 
@@ -347,7 +346,7 @@ final class OpenF1Service: @unchecked Sendable {
     func fetchDrivers(sessionKey: Int? = nil) async throws -> [DriverInfo] {
         var items: [URLQueryItem] = []
         if let key = sessionKey { items.append(URLQueryItem(name: "session_key", value: String(key))) }
-        let dtos: [DriverDTO] = try await fetch(path: "drivers", queryItems: items)
+        let dtos: [OpenF1DriverDTO] = try await fetch(path: "drivers", queryItems: items)
         return dtos.map { $0.toModel() }
     }
 
@@ -525,7 +524,7 @@ extension SessionDTO {
     }
 }
 
-extension DriverDTO {
+extension OpenF1DriverDTO {
     func toModel() -> DriverInfo {
         DriverInfo(
             id: "\(driverNumber ?? 0)-\(sessionKey ?? 0)",

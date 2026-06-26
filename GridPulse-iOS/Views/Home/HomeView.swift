@@ -67,7 +67,7 @@ struct HomeView: View {
 
                         Spacer()
 
-                        Text(race.date, style: .timer)
+                        Text(race.date, style: .date)
                             .font(GridPulseTypography.mono)
                             .foregroundStyle(.gridRed)
                     }

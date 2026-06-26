@@ -8,28 +8,8 @@ struct RaceDetailView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: GridPulseSpacing.md) {
-                // Race Header
                 raceHeader
-
-                // Sessions Timeline
-                if !viewModel.sessions.isEmpty {
-                    sessionsSection
-                }
-
-                // Starting Grid
-                if !viewModel.grid.isEmpty {
-                    gridSection
-                }
-
-                // Results
-                if !viewModel.results.isEmpty {
-                    resultsSection
-                }
-
-                // Weather
-                if !viewModel.weather.isEmpty {
-                    weatherSection
-                }
+                resultsSection
             }
             .padding()
         }
@@ -49,66 +29,23 @@ struct RaceDetailView: View {
                     .font(GridPulseTypography.heroTitle)
                     .foregroundStyle(.gridOnSurface)
 
-                Label(race.circuitId.replacingOccurrences(of: "_", with: " ").capitalized, systemImage: "mappin.and.ellipse")
-                    .font(GridPulseTypography.caption)
-                    .foregroundStyle(.gridOnSurfaceSecondary)
-
-                HStack {
-                    Label(race.date, style: .date, systemImage: "calendar")
+                HStack(spacing: GridPulseSpacing.xs) {
+                    Image(systemName: "mappin.and.ellipse")
+                        .foregroundStyle(.gridOnSurfaceSecondary)
+                    Text(race.circuitId.replacingOccurrences(of: "_", with: " ").capitalized)
                         .font(GridPulseTypography.caption)
                         .foregroundStyle(.gridOnSurfaceSecondary)
 
-                    if viewModel.isLoading {
-                        ProgressView()
-                            .tint(.gridAccent)
-                    }
+                    Spacer()
+
+                    Text(race.date, style: .date)
+                        .font(GridPulseTypography.caption)
+                        .foregroundStyle(.gridOnSurfaceSecondary)
                 }
-            }
-        }
-    }
 
-    // MARK: - Sessions
-    private var sessionsSection: some View {
-        GlassCard {
-            VStack(alignment: .leading, spacing: GridPulseSpacing.sm) {
-                Label("SESSIONS", systemImage: "clock")
-                    .font(GridPulseTypography.caption)
-                    .foregroundStyle(.gridAccent)
-
-                ForEach(viewModel.sessions) { session in
-                    HStack {
-                        Text(session.type.rawValue.uppercased())
-                            .font(GridPulseTypography.caption)
-                            .foregroundStyle(.gridOnSurface)
-                        Spacer()
-                        Text(session.date, style: .date)
-                            .font(GridPulseTypography.mono)
-                            .foregroundStyle(.gridOnSurfaceSecondary)
-                    }
-                }
-            }
-        }
-    }
-
-    // MARK: - Grid
-    private var gridSection: some View {
-        GlassCard {
-            VStack(alignment: .leading, spacing: GridPulseSpacing.sm) {
-                Label("STARTING GRID", systemImage: "list.number")
-                    .font(GridPulseTypography.caption)
-                    .foregroundStyle(.gridAccent)
-
-                ForEach(viewModel.grid.prefix(10)) { position in
-                    HStack {
-                        PositionChip(position: position.position, style: .circle)
-                        Text(position.driverCode)
-                            .font(GridPulseTypography.body)
-                            .foregroundStyle(.gridOnSurface)
-                        Spacer()
-                        Text(position.teamName)
-                            .font(GridPulseTypography.caption)
-                            .foregroundStyle(.gridOnSurfaceSecondary)
-                    }
+                if viewModel.isLoading {
+                    ProgressView()
+                        .tint(.gridAccent)
                 }
             }
         }
@@ -122,57 +59,23 @@ struct RaceDetailView: View {
                     .font(GridPulseTypography.caption)
                     .foregroundStyle(.gridAccent)
 
-                ForEach(viewModel.results.prefix(10)) { result in
-                    HStack {
-                        PositionChip(position: result.position, style: .circle)
-                        Text(result.driverName)
-                            .font(GridPulseTypography.body)
-                            .foregroundStyle(.gridOnSurface)
-                        Spacer()
-                        if let gap = result.gapToLeader {
-                            Text(gap)
-                                .font(GridPulseTypography.mono)
-                                .foregroundStyle(.gridOnSurfaceSecondary)
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    // MARK: - Weather
-    private var weatherSection: some View {
-        GlassCard {
-            VStack(alignment: .leading, spacing: GridPulseSpacing.sm) {
-                Label("WEATHER", systemImage: "cloud.sun")
-                    .font(GridPulseTypography.caption)
-                    .foregroundStyle(.gridAccent)
-
-                if let currentWeather = viewModel.weather.first {
-                    HStack(spacing: GridPulseSpacing.lg) {
-                        if let trackTemp = currentWeather.trackTemp {
-                            VStack {
-                                Text("\(trackTemp, specifier: "%.0f")°")
-                                    .font(GridPulseTypography.heroTitle)
-                                    .foregroundStyle(.gridOnSurface)
-                                Text("Track")
-                                    .font(GridPulseTypography.caption)
+                if viewModel.results.isEmpty {
+                    Text("No results yet")
+                        .font(GridPulseTypography.caption)
+                        .foregroundStyle(.gridOnSurfaceSecondary)
+                } else {
+                    ForEach(Array(viewModel.results.prefix(10))) { result in
+                        HStack {
+                            PositionChip(position: result.position, style: .circle)
+                            Text(result.driverId.replacingOccurrences(of: "_", with: " "))
+                                .font(GridPulseTypography.body)
+                                .foregroundStyle(.gridOnSurface)
+                            Spacer()
+                            if !result.time.isEmpty {
+                                Text(result.time)
+                                    .font(GridPulseTypography.mono)
                                     .foregroundStyle(.gridOnSurfaceSecondary)
                             }
-                        }
-                        if let airTemp = currentWeather.airTemp {
-                            VStack {
-                                Text("\(airTemp, specifier: "%.0f")°")
-                                    .font(GridPulseTypography.heroTitle)
-                                    .foregroundStyle(.gridOnSurface)
-                                Text("Air")
-                                    .font(GridPulseTypography.caption)
-                                    .foregroundStyle(.gridOnSurfaceSecondary)
-                            }
-                        }
-                        if currentWeather.rainfall {
-                            Label("Rain", systemImage: "cloud.rain")
-                                .foregroundStyle(.gridBlue)
                         }
                     }
                 }
@@ -189,7 +92,6 @@ struct RaceDetailView: View {
             name: "Monaco Grand Prix",
             circuitId: "monaco",
             date: Date(),
-            sessions: [],
             season: 2026,
             round: 5
         ))

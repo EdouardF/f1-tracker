@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum Team: String, CaseIterable {
+enum Team: String, CaseIterable, Sendable {
     case redBull = "red_bull"
     case ferrari = "ferrari"
     case mercedes = "mercedes"
@@ -14,31 +14,31 @@ enum Team: String, CaseIterable {
 
     var primaryColor: Color {
         switch self {
-        case .redBull: return Color(hex: "#3671C6")
-        case .ferrari: return Color(hex: "#E8002D")
-        case .mercedes: return Color(hex: "#27F4D2")
-        case .mclaren: return Color(hex: "#FF8000")
-        case .astonMartin: return Color(hex: "#229971")
-        case .alpine: return Color(hex: "#FF87BC")
-        case .williams: return Color(hex: "#64C4FF")
-        case .rb: return Color(hex: "#6692FF")
-        case .sauber: return Color(hex: "#52E252")
-        case .haas: return Color(hex: "#B6BABD")
+        case .redBull: return Color(hex: "3671C6")
+        case .ferrari: return Color(hex: "E8002D")
+        case .mercedes: return Color(hex: "27F4D2")
+        case .mclaren: return Color(hex: "FF8000")
+        case .astonMartin: return Color(hex: "229971")
+        case .alpine: return Color(hex: "FF87BC")
+        case .williams: return Color(hex: "64C4FF")
+        case .rb: return Color(hex: "6692FF")
+        case .sauber: return Color(hex: "52E252")
+        case .haas: return Color(hex: "B6BABD")
         }
     }
 
     var secondaryColor: Color {
         switch self {
-        case .redBull: return Color(hex: "#FFD700")
-        case .ferrari: return Color(hex: "#FFE100")
-        case .mercedes: return Color(hex: "#000000")
-        case .mcland: return Color(hex: "#0057B8")
-        case .astonMartin: return Color(hex: "#006F62")
-        case .alpine: return Color(hex: "#0090FF")
-        case .williams: return Color(hex: "#005AFF")
-        case .rb: return Color(hex: "#FFFFFF")
-        case .sauber: return Color(hex: "#000000")
-        case .haas: return Color(hex: "#000000")
+        case .redBull: return Color(hex: "FFD700")
+        case .ferrari: return Color(hex: "FFE100")
+        case .mercedes: return Color(hex: "000000")
+        case .mclaren: return Color(hex: "0057B8")
+        case .astonMartin: return Color(hex: "006F62")
+        case .alpine: return Color(hex: "0090FF")
+        case .williams: return Color(hex: "005AFF")
+        case .rb: return Color(hex: "FFFFFF")
+        case .sauber: return Color(hex: "000000")
+        case .haas: return Color(hex: "000000")
         }
     }
 
@@ -85,16 +85,22 @@ enum Team: String, CaseIterable {
     }
 }
 
-tool "Color" {
+// MARK: - Color Extension
+extension Color {
     init(hex: String) {
-        let hex = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-        var red: UInt32 = 0
-        var green: UInt32 = 0
-        var blue: UInt32 = 0
-        let scanner = Scanner(string: String(hex.dropFirst()))
-        scanner.scanHexInt32(&red)
-        scanner.scanHexInt32(&green)
-        scanner.scanHexInt32(&blue)
-        self.init(red: Double(red)/255, green: Double(green)/255, blue: Double(blue)/255)
+        let cleaned = hex.trimmingCharacters(in: CharacterSet(charactersIn: "#"))
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .uppercased()
+        let scanner = Scanner(string: cleaned)
+        var rgbValue: UInt64 = 0
+        scanner.scanHexInt64(&rgbValue)
+        let r = Double((rgbValue & 0xFF0000) >> 16) / 255.0
+        let g = Double((rgbValue & 0x00FF00) >> 8) / 255.0
+        let b = Double(rgbValue & 0x0000FF) / 255.0
+        self.init(red: r, green: g, blue: b)
+    }
+
+    static func teamColor(for constructorId: String) -> Color {
+        Team(rawValue: constructorId)?.primaryColor ?? Color.gray.opacity(0.3)
     }
 }

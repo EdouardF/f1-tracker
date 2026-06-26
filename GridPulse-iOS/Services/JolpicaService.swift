@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 import SwiftData
 
 // MARK: - Errors
@@ -250,7 +251,6 @@ struct SpeedDTO: Decodable {
 }
 
 // MARK: - Service
-@MainActor
 final class JolpicaService: @unchecked Sendable {
     static let shared = JolpicaService()
 
@@ -299,13 +299,13 @@ final class JolpicaService: @unchecked Sendable {
     func fetchDrivers(season: Int = 2026) async throws -> [Driver] {
         let path = "\(season)/drivers.json"
         let wrapper = try await fetch(path: path, as: JolpicaDriverResponse.self)
-        return wrapper.mrData.driverTable.driverTable.drivers.map { $0.toModel() }
+        return wrapper.mrData.driverTable.drivers.map { $0.toModel() }
     }
 
     func fetchDriverStandings(season: Int = 2026) async throws -> [DriverStanding] {
         let path = "\(season)/driverStandings.json"
         let wrapper = try await fetch(path: path, as: JolpicaStandingsResponse.self)
-        let standingsData = wrapper.mrData.standingsTable.standingsTable
+        let standingsData = wrapper.mrData.standingsTable
         guard let standings = standingsData.driverStandings else { return [] }
         return standings.map { $0.toModel() }
     }
@@ -314,13 +314,13 @@ final class JolpicaService: @unchecked Sendable {
     func fetchConstructors(season: Int = 2026) async throws -> [Constructor] {
         let path = "\(season)/constructors.json"
         let wrapper = try await fetch(path: path, as: JolpicaConstructorResponse.self)
-        return wrapper.mrData.constructorTable.constructorTable.constructors.map { $0.toModel() }
+        return wrapper.mrData.constructorTable.constructors.map { $0.toModel() }
     }
 
     func fetchConstructorStandings(season: Int = 2026) async throws -> [ConstructorStanding] {
         let path = "\(season)/constructorStandings.json"
         let wrapper = try await fetch(path: path, as: JolpicaConstructorStandingsResponse.self)
-        let standingsData = wrapper.mrData.standingsTable.standingsTable
+        let standingsData = wrapper.mrData.standingsTable
         guard let standings = standingsData.constructorStandings else { return [] }
         return standings.map { $0.toModel() }
     }
@@ -329,13 +329,13 @@ final class JolpicaService: @unchecked Sendable {
     func fetchRaces(season: Int = 2026) async throws -> [Race] {
         let path = "\(season).json"
         let wrapper = try await fetch(path: path, as: JolpicaRaceResponse.self)
-        return wrapper.mrData.raceTable.raceTable.races.map { $0.toModel() }
+        return wrapper.mrData.raceTable.races.map { $0.toModel() }
     }
 
     func fetchRaceResults(season: Int, round: Int) async throws -> [RaceResult] {
         let path = "\(season)/\(round)/results.json"
         let wrapper = try await fetch(path: path, as: JolpicaRaceResultResponse.self)
-        guard let races = wrapper.mrData.raceTable.raceTable.races.first,
+        guard let races = wrapper.mrData.raceTable.races.first,
               let results = races.results else { return [] }
         return results.map { $0.toModel() }
     }
@@ -351,7 +351,7 @@ final class JolpicaService: @unchecked Sendable {
     func fetchCurrentSchedule() async throws -> [Race] {
         let path = "current.json"
         let wrapper = try await fetch(path: path, as: JolpicaRaceResponse.self)
-        return wrapper.mrData.raceTable.raceTable.races.map { $0.toModel() }
+        return wrapper.mrData.raceTable.races.map { $0.toModel() }
     }
 
     // MARK: - Circuits
@@ -519,7 +519,6 @@ extension RaceDTO {
             name: raceName,
             circuitId: circuit.circuitId,
             date: raceDate,
-            sessions: [],
             season: Int(season) ?? 2026,
             round: Int(round) ?? 0
         )
@@ -590,10 +589,9 @@ struct QualifyingResult: Identifiable, Codable, Hashable {
     let q3: String?
 }
 
-// MARK: - Color Helper
 extension Color {
     func toHex() -> String? {
-        guard let components = UIColor(self).cgColor?.components,
+        guard let components = UIColor(self).cgColor.components,
               components.count >= 3 else { return nil }
         let r = Int(components[0] * 255)
         let g = Int(components[1] * 255)

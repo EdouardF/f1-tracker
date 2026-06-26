@@ -96,17 +96,6 @@ struct RaceWeekendView: View {
 
 // MARK: - SessionType Extension
 extension SessionType {
-    var shortName: String {
-        switch self {
-        case .fp1: return "FP1"
-        case .fp2: return "FP2"
-        case .fp3: return "FP3"
-        case .qualifying: return "Q"
-        case .sprint: return "Sprint"
-        case .race: return "Race"
-        }
-    }
-
     var fullName: String {
         switch self {
         case .fp1: return "Free Practice 1"
@@ -130,7 +119,6 @@ extension SessionType {
             name: "Monaco Grand Prix",
             circuitId: "monaco",
             date: Date(),
-            sessions: [],
             season: 2026,
             round: 5
         ))
