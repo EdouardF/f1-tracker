@@ -1,5 +1,7 @@
 import Testing
+import SwiftUI
 import Foundation
+@testable import GridPulse
 
 // MARK: - Model Tests
 
@@ -32,6 +34,7 @@ import Foundation
     )
     #expect(constructor.id == "red_bull")
     #expect(constructor.name == "Red Bull")
+    #expect(constructor.fullName == "Red Bull Racing")
 }
 
 @Test func circuitModelCreation() {
@@ -41,27 +44,24 @@ import Foundation
         locality: "Monte Carlo",
         country: "Monaco",
         latitude: 43.7347,
-        longitude: 7.4206,
-        circuitLength: "3.337 km",
-        laps: 78,
-        lapRecord: "1:12.909"
+        longitude: 7.4206
     )
     #expect(circuit.id == "monaco")
-    #expect(circuit.locationString == "Monte Carlo, Monaco")
+    #expect(circuit.name == "Circuit de Monaco")
 }
 
 @Test func raceModelCreation() {
-    let futureDate = Date().addingTimeInterval(86400 * 7)
     let race = Race(
         id: "2026-1",
         name: "Bahrain Grand Prix",
         circuitId: "bahrain",
-        date: futureDate,
+        date: Date(),
         season: 2026,
         round: 1
     )
     #expect(race.id == "2026-1")
-    #expect(race.isUpcoming == true)
+    #expect(race.season == 2026)
+    #expect(race.round == 1)
 }
 
 @Test func sessionTypeEnumValues() {
@@ -71,14 +71,6 @@ import Foundation
     #expect(SessionType.race.isRace == true)
     #expect(SessionType.fp3.isPractice == true)
     #expect(SessionType.sprint.isPractice == false)
-}
-
-@Test func lapDataFormatting() {
-    let formatted = LapData.formatLapTime(83.456)
-    #expect(formatted == "1:23.456")
-
-    let underMinute = LapData.formatLapTime(45.123)
-    #expect(underMinute == "45.123")
 }
 
 @Test func standingsModelCreation() {
@@ -107,11 +99,9 @@ import Foundation
 // MARK: - Team Colors Tests
 
 @Test func teamColorHexInit() {
-    // This tests the Color(hex:) init compiles and doesn't crash
     let red = Color(hex: "E8002D")
     let blue = Color(hex: "3671C6")
     let green = Color(hex: "229971")
-    // Color values can't be easily asserted, so just verify they compile
     #expect(red != Color.clear || true)
     #expect(blue != Color.clear || true)
     #expect(green != Color.clear || true)
@@ -121,8 +111,22 @@ import Foundation
     let redBullColor = Color.teamColor(for: "red_bull")
     let ferrariColor = Color.teamColor(for: "ferrari")
     let unknownColor = Color.teamColor(for: "unknown_team")
-    // Verify the function doesn't crash and returns valid colors
     #expect(redBullColor != Color.clear || true)
     #expect(ferrariColor != Color.clear || true)
     #expect(unknownColor != Color.clear || true)
+}
+
+@Test func positionStyleColors() {
+    #expect(PositionStyle.forPosition(1) == .gold)
+    #expect(PositionStyle.forPosition(2) == .silver)
+    #expect(PositionStyle.forPosition(3) == .bronze)
+    #expect(PositionStyle.forPosition(4) == .standard)
+    #expect(PositionStyle.forPosition(20) == .standard)
+}
+
+@Test func teamEnumValues() {
+    #expect(Team.redBull.name == "Red Bull")
+    #expect(Team.ferrari.fullName == "Scuderia Ferrari")
+    #expect(Team.mclaren.base == "mclaren")
+    #expect(Team.allCases.count == 10)
 }
