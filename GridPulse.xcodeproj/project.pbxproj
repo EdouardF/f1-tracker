@@ -11,6 +11,7 @@
 		06C0A51302FB5E0C96F85EBA /* LapTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8126742462A9A9751B36B4A /* LapTimeView.swift */; };
 		1480103C921588FBFE09BC37 /* JolpicaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F299508579A1C8160E5052 /* JolpicaService.swift */; };
 		232C99969A67BB5FF054F073 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72042C28D0A25FD409B0049 /* HomeViewModel.swift */; };
+		25913870B5F8B3A5759D53C9 /* StandingsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4478D9A48BE93146A224D41 /* StandingsTabView.swift */; };
 		2E05352AA80EE3CBC7492B7A /* Constructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0DAFCFD51771E036E5B52A /* Constructor.swift */; };
 		32F9773A67E2BE5901803DCF /* PositionChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FCC16AF13815A849C025D3 /* PositionChip.swift */; };
 		45D3AECF3835163F36255467 /* Circuit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A4C92F44E492F17BD02AC /* Circuit.swift */; };
@@ -84,6 +85,7 @@
 		C19D29667D20DC09D7ED333E /* GlassCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassCard.swift; sourceTree = "<group>"; };
 		D0E793F5EFB151405F56D9E6 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		D72042C28D0A25FD409B0049 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		E4478D9A48BE93146A224D41 /* StandingsTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingsTabView.swift; sourceTree = "<group>"; };
 		E473E31EC6D5E1B6BE291E7A /* Standing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Standing.swift; sourceTree = "<group>"; };
 		E831C512A964FB30ADFF9349 /* ConstructorStandingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructorStandingsView.swift; sourceTree = "<group>"; };
 		E91E470E2F9DAB22D5239BC4 /* DriverStandingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverStandingsView.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 				E831C512A964FB30ADFF9349 /* ConstructorStandingsView.swift */,
 				BF6D30D0D9D22EA627F003EE /* DriverDetailView.swift */,
 				E91E470E2F9DAB22D5239BC4 /* DriverStandingsView.swift */,
+				E4478D9A48BE93146A224D41 /* StandingsTabView.swift */,
 			);
 			path = Standings;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 				C867A4E9F21AEC1487758B4A /* Session.swift in Sources */,
 				BDEEF591CA58D6E2BB9666C9 /* SettingsView.swift in Sources */,
 				A9A30649EB31CE39D34744F9 /* Standing.swift in Sources */,
+				25913870B5F8B3A5759D53C9 /* StandingsTabView.swift in Sources */,
 				654639D56C3EDB442417D1FD /* StandingsViewModel.swift in Sources */,
 				B595B4B16E92DEE8A720F8DD /* TeamColorBadge.swift in Sources */,
 				A221EE963C353BAFE3525584 /* TeamColors.swift in Sources */,
