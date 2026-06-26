@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 
 struct HomeView: View {
     @State private var viewModel = HomeViewModel()
@@ -6,134 +7,147 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: GridPulseTheme.paddingMedium) {
-                    // MARK: - Next Race Countdown
-                    nextRaceSection
-
-                    // MARK: - Standings Snapshot
-                    standingsSection
-
-                    // MARK: - Recent Results
-                    recentResultsSection
+                VStack(spacing: GridPulseSpacing.md) {
+                    if viewModel.isLoading && viewModel.nextRace == nil {
+                        loadingView
+                    } else {
+                        nextRaceSection
+                        recentResultsSection
+                        standingsSnapshot
+                    }
                 }
-                .padding(.horizontal, GridPulseTheme.paddingMedium)
+                .padding()
             }
-            .background(GridPulseTheme.background)
+            .background(Color.gridBackground)
             .navigationTitle("GridPulse")
+            .refreshable {
+                await viewModel.refresh()
+            }
+            .task {
+                await viewModel.loadData()
+            }
+            .alert("Error", isPresented: .constant(viewModel.errorMessage != nil)) {
+                Button("OK") { viewModel.errorMessage = nil }
+            } message: {
+                Text(viewModel.errorMessage ?? "")
+            }
         }
-        .task {
-            await viewModel.loadAll()
+    }
+
+    // MARK: - Loading
+    private var loadingView: some View {
+        VStack(spacing: GridPulseSpacing.md) {
+            ProgressView()
+                .tint(.gridAccent)
+            Text("Loading race data...")
+                .font(GridPulseTypography.caption)
+                .foregroundStyle(.gridOnSurfaceSecondary)
         }
-        .refreshable {
-            await viewModel.loadAll()
-        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, GridPulseSpacing.xl)
     }
 
     // MARK: - Next Race
-
-    @ViewBuilder
     private var nextRaceSection: some View {
-        if let race = viewModel.nextRace {
-            GlassCard {
-                VStack(alignment: .leading, spacing: GridPulseTheme.paddingSmall) {
-                    Text("NEXT RACE")
-                        .font(GridPulseTheme.caption)
-                        .foregroundStyle(GridPulseTheme.accent)
-
-                    Text(race.name)
-                        .font(GridPulseTheme.heroTitle)
-                        .foregroundStyle(.white)
-
-                    Text(race.circuitId.replacingOccurrences(of: "_", with: " ").capitalized)
-                        .font(GridPulseTheme.body)
-                        .foregroundStyle(GridPulseTheme.mutedText)
-
-                    Text(viewModel.countdownString)
-                        .font(.system(size: 48, weight: .heavy, design: .monospaced))
-                        .foregroundStyle(.white)
-                }
-            }
-        } else if viewModel.isLoading {
-            GlassCard {
-                ProgressView()
-                    .frame(maxWidth: .infinity)
-            }
-        } else {
-            GlassCard {
-                Text("No upcoming race")
-                    .foregroundStyle(GridPulseTheme.mutedText)
-                    .frame(maxWidth: .infinity)
-            }
-        }
-    }
-
-    // MARK: - Standings Snapshot
-
-    private var standingsSection: some View {
         GlassCard {
-            VStack(alignment: .leading, spacing: GridPulseTheme.paddingSmall) {
-                Text("DRIVERS STANDINGS")
-                    .font(GridPulseTheme.caption)
-                    .foregroundStyle(GridPulseTheme.accent)
+            VStack(alignment: .leading, spacing: GridPulseSpacing.sm) {
+                Label("NEXT RACE", systemImage: "flag.checkered")
+                    .font(GridPulseTypography.caption)
+                    .foregroundStyle(.gridAccent)
 
-                ForEach(viewModel.driverStandings.prefix(5)) { standing in
+                if let race = viewModel.nextRace {
+                    Text(race.name)
+                        .font(GridPulseTypography.heroTitle)
+                        .foregroundStyle(.gridOnSurface)
+
                     HStack {
-                        PositionChip(position: standing.position, size: 28)
-                        Text(standing.driverId.replacingOccurrences(of: "_", with: " ").capitalized)
-                            .font(GridPulseTheme.body)
-                            .foregroundStyle(.white)
-                        Spacer()
-                        Text("\(Int(standing.points)) pts")
-                            .font(GridPulseTheme.mono)
-                            .foregroundStyle(GridPulseTheme.mutedText)
-                    }
-                }
+                        Label(race.circuitId.replacingOccurrences(of: "_", with: " ").capitalized, systemImage: "mappin.and.ellipse")
+                            .font(GridPulseTypography.caption)
+                            .foregroundStyle(.gridOnSurfaceSecondary)
 
-                NavigationLink {
-                    DriverStandingsView()
-                } label: {
-                    Text("View Full Standings")
-                        .font(GridPulseTheme.caption)
-                        .foregroundStyle(GridPulseTheme.accent)
+                        Spacer()
+
+                        Text(race.date, style: .timer)
+                            .font(GridPulseTypography.mono)
+                            .foregroundStyle(.gridRed)
+                    }
+                } else {
+                    Text("No upcoming races")
+                        .font(GridPulseTypography.sectionTitle)
+                        .foregroundStyle(.gridOnSurfaceSecondary)
                 }
             }
         }
     }
 
     // MARK: - Recent Results
-
     private var recentResultsSection: some View {
         GlassCard {
-            VStack(alignment: .leading, spacing: GridPulseTheme.paddingSmall) {
-                Text("RECENT RESULTS")
-                    .font(GridPulseTheme.caption)
-                    .foregroundStyle(GridPulseTheme.accent)
+            VStack(alignment: .leading, spacing: GridPulseSpacing.sm) {
+                Label("LATEST RESULT", systemImage: "trophy")
+                    .font(GridPulseTypography.caption)
+                    .foregroundStyle(.gridAccent)
 
                 if viewModel.recentResults.isEmpty {
-                    Text("No recent results")
-                        .font(GridPulseTheme.body)
-                        .foregroundStyle(GridPulseTheme.mutedText)
+                    Text("No results available")
+                        .font(GridPulseTypography.caption)
+                        .foregroundStyle(.gridOnSurfaceSecondary)
                 } else {
-                    ForEach(viewModel.recentResults.prefix(5)) { result in
+                    ForEach(Array(viewModel.recentResults.prefix(3))) { result in
                         HStack {
-                            PositionChip(position: result.position, size: 28)
-                            Text(result.driverId.replacingOccurrences(of: "_", with: " ").capitalized)
-                                .font(GridPulseTheme.body)
-                                .foregroundStyle(.white)
+                            PositionChip(position: result.position, style: .circle)
+                            Text(result.driverId.replacingOccurrences(of: "_", with: " "))
+                                .font(GridPulseTypography.body)
+                                .foregroundStyle(.gridOnSurface)
                             Spacer()
-                            Text(result.time ?? "—")
-                                .font(GridPulseTheme.mono)
-                                .foregroundStyle(GridPulseTheme.mutedText)
+                            Text(result.time)
+                                .font(GridPulseTypography.mono)
+                                .foregroundStyle(.gridOnSurfaceSecondary)
                         }
                     }
                 }
             }
         }
     }
+
+    // MARK: - Standings Snapshot
+    private var standingsSnapshotSection: some View {
+        GlassCard {
+            VStack(alignment: .leading, spacing: GridPulseSpacing.sm) {
+                Label("DRIVERS STANDINGS", systemImage: "chart.bar")
+                    .font(GridPulseTypography.caption)
+                    .foregroundStyle(.gridAccent)
+
+                if viewModel.topDrivers.isEmpty {
+                    Text("No standings available")
+                        .font(GridPulseTypography.caption)
+                        .foregroundStyle(.gridOnSurfaceSecondary)
+                } else {
+                    ForEach(Array(viewModel.topDrivers.prefix(5))) { standing in
+                        HStack {
+                            PositionChip(position: standing.position, style: .circle)
+                            Text(standing.driverId.replacingOccurrences(of: "_", with: " "))
+                                .font(GridPulseTypography.body)
+                                .foregroundStyle(.gridOnSurface)
+                            Spacer()
+                            Text("\(standing.points, specifier: "%.0f") pts")
+                                .font(GridPulseTypography.mono)
+                                .foregroundStyle(.gridOnSurfaceSecondary)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // MARK: - Computed
+    private var standingsSnapshot: some View {
+        standingsSnapshotSection
+    }
 }
 
 // MARK: - Preview
 #Preview {
     HomeView()
-        .preferredColorScheme(.dark)
+        .modelContainer(for: [Driver.self, Constructor.self, Race.self, CacheEntry.self])
 }

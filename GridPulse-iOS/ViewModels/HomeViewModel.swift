@@ -5,7 +5,7 @@ import Observation
 final class HomeViewModel {
     var nextRace: Race?
     var recentResults: [RaceResult] = []
-    var driverStandings: [DriverStanding] = []
+    var topDrivers: [DriverStanding] = []
     var isLoading = false
     var errorMessage: String?
 
@@ -14,17 +14,18 @@ final class HomeViewModel {
     private let cache = CacheService.shared
 
     // MARK: - Load All Data
-
-    func loadAll() async {
+    func loadData() async {
         isLoading = true
         errorMessage = nil
 
-        async let nextRaceTask = loadNextRace()
-        async let standingsTask = loadStandings()
-
         do {
-            _ = try await nextRaceTask
-            _ = try await standingsTask
+            async let nextRaceTask = loadNextRace()
+            async let standingsTask = loadTopDrivers()
+            async let resultsTask = loadRecentResults()
+
+            try await nextRaceTask
+            try await standingsTask
+            try await resultsTask
         } catch {
             errorMessage = error.localizedDescription
         }
@@ -33,43 +34,47 @@ final class HomeViewModel {
     }
 
     // MARK: - Next Race
-
     func loadNextRace() async throws {
-        do {
-            let races = try await jolpica.fetchRaceSchedule(season: 2026)
-            nextRace = races.filter { $0.date > Date() }.sorted(by: { $0.date < $1.date }).first
-        } catch {
-            throw error
+        let races = try await cache.loadOrFetch([Race].self, forKey: CacheKey.currentSchedule(), ttl: .schedule) {
+            try await self.jolpica.fetchCurrentSchedule()
+        }
+
+        // Find the next upcoming race
+        let now = Date()
+        nextRace = races
+            .filter { $0.date > now }
+            .min(by: { $0.date < $1.date })
+    }
+
+    // MARK: - Top Drivers
+    func loadTopDrivers() async throws {
+        let standings = try await cache.loadOrFetch([DriverStanding].self, forKey: CacheKey.driverStandings(season: 2026), ttl: .standings) {
+            try await self.jolpica.fetchDriverStandings(season: 2026)
+        }
+        topDrivers = Array(standings.prefix(5))
+    }
+
+    // MARK: - Recent Results
+    func loadRecentResults() async throws {
+        let races = try await cache.loadOrFetch([Race].self, forKey: CacheKey.currentSchedule(), ttl: .schedule) {
+            try await self.jolpica.fetchCurrentSchedule()
+        }
+
+        let now = Date()
+        let pastRaces = races
+            .filter { $0.date < now }
+            .sorted { $0.date > $1.date }
+
+        guard let lastRace = pastRaces.first else { return }
+
+        recentResults = try await cache.loadOrFetch([RaceResult].self, forKey: CacheKey.raceResults(season: lastRace.season, round: lastRace.round), ttl: .sessionResult) {
+            try await self.jolpica.fetchRaceResults(season: lastRace.season, round: lastRace.round)
         }
     }
 
-    // MARK: - Standings Snapshot
-
-    func loadStandings() async throws {
-        do {
-            driverStandings = try await jolpica.fetchDriverStandings(season: 2026)
-        } catch {
-            throw error
-        }
-    }
-
-    // MARK: - Countdown
-
-    var countdownString: String {
-        guard let race = nextRace else { return "--:--:--" }
-        let interval = race.date.timeIntervalSinceNow
-        guard interval > 0 else { return "LIVE" }
-
-        let hours = Int(interval) / 3600
-        let minutes = Int(interval) % 3600 / 60
-        let seconds = Int(interval) % 60
-
-        if hours >= 24 {
-            let days = hours / 24
-            let remainingHours = hours % 24
-            return "\(days)d \(remainingHours)h"
-        }
-
-        return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+    // MARK: - Refresh
+    func refresh() async {
+        try? cache.invalidateAll()
+        await loadData()
     }
 }

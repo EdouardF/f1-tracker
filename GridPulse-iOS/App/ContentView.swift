@@ -1,61 +1,50 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selectedTab = 0
+    @State private var selectedTab: Tab = .home
+
+    enum Tab: String, CaseIterable {
+        case home = "Home"
+        case schedule = "Schedule"
+        case standings = "Standings"
+        case settings = "Settings"
+
+        var icon: String {
+            switch self {
+            case .home: return "house.fill"
+            case .schedule: return "flag.checkered"
+            case .standings: return "chart.bar.fill"
+            case .settings: return "gearshape.fill"
+            }
+        }
+    }
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            Tab("Home", systemImage: "flag.checkered", value: 0) {
+            Tab("Home", systemImage: Tab.home.icon, value: Tab.home) {
                 HomeView()
             }
 
-            Tab("Schedule", systemImage: "calendar", value: 1) {
+            Tab("Schedule", systemImage: Tab.schedule.icon, value: Tab.schedule) {
                 ScheduleView()
             }
 
-            Tab("Standings", systemImage: "trophy.fill", value: 2) {
+            Tab("Standings", systemImage: Tab.standings.icon, value: Tab.standings) {
                 StandingsTabView()
             }
 
-            Tab("Settings", systemImage: "gearshape.fill", value: 3) {
+            Tab("Settings", systemImage: Tab.settings.icon, value: Tab.settings) {
                 SettingsView()
             }
         }
-        .tint(GridPulseTheme.accent)
-    }
-}
-
-// MARK: - Standings Tab (with segmented control for Drivers / Constructors)
-struct StandingsTabView: View {
-    @State private var selectedSegment = 0
-
-    var body: some View {
-        NavigationStack {
-            VStack(spacing: 0) {
-                // Segmented picker
-                Picker("Standings Type", selection: $selectedSegment) {
-                    Text("Drivers").tag(0)
-                    Text("Constructors").tag(1)
-                }
-                .pickerStyle(.segmented)
-                .padding(.horizontal, GridPulseTheme.paddingMedium)
-                .padding(.vertical, GridPulseTheme.paddingSmall)
-
-                // Content
-                if selectedSegment == 0 {
-                    DriverStandingsView()
-                } else {
-                    ConstructorStandingsView()
-                }
-            }
-            .background(GridPulseTheme.background)
-            .navigationTitle("Standings")
-        }
+        #if compiler(>=6.2)
+        .tabViewStyle(.glassTabView)
+        #endif
     }
 }
 
 // MARK: - Preview
 #Preview {
     ContentView()
-        .preferredColorScheme(.dark)
+        .modelContainer(for: [Driver.self, Constructor.self, Race.self, CacheEntry.self])
 }

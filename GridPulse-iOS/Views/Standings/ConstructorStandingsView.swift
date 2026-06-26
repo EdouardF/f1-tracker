@@ -1,91 +1,58 @@
 import SwiftUI
+import SwiftData
 
 struct ConstructorStandingsView: View {
     @State private var viewModel = StandingsViewModel()
 
     var body: some View {
-        Group {
+        List {
             if viewModel.isLoading && viewModel.constructorStandings.isEmpty {
-                ProgressView("Loading standings...")
-                    .foregroundStyle(.white)
-            } else if let error = viewModel.errorMessage {
-                VStack(spacing: 12) {
-                    Image(systemName: "exclamationmark.triangle")
-                        .font(.largeTitle)
-                        .foregroundStyle(GridPulseTheme.warning)
-                    Text(error)
-                        .font(GridPulseTheme.body)
-                        .foregroundStyle(GridPulseTheme.mutedText)
-                    Button("Retry") {
-                        Task { await viewModel.loadStandings() }
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .tint(GridPulseTheme.accent)
-                }
+                ProgressView()
+                    .tint(.gridAccent)
             } else {
-                constructorsList
+                ForEach(viewModel.constructorStandings) { standing in
+                    constructorRow(standing: standing)
+                }
             }
-        }
-        .background(GridPulseTheme.background)
-        .task {
-            await viewModel.loadStandings()
-        }
-        .refreshable {
-            await viewModel.loadStandings()
-        }
-    }
-
-    // MARK: - Constructors List
-
-    private var constructorsList: some View {
-        List(viewModel.constructorStandings) { standing in
-            constructorRow(standing: standing)
-                .listRowBackground(Color.clear)
-                .listRowSeparatorTint(Color.white.opacity(0.1))
         }
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
+        .task {
+            await viewModel.loadData()
+        }
     }
 
-    // MARK: - Constructor Row
-
     private func constructorRow(standing: ConstructorStanding) -> some View {
-        HStack(spacing: 12) {
-            PositionChip(position: standing.position, size: 32)
+        HStack(spacing: GridPulseSpacing.sm) {
+            PositionChip(position: standing.position, style: .circle)
 
-            // Team color bar
-            RoundedRectangle(cornerRadius: 3)
+            Circle()
                 .fill(Color.teamColor(for: standing.constructorId))
-                .frame(width: 6, height: 40)
+                .frame(width: 24, height: 24)
 
-            VStack(alignment: .leading, spacing: 2) {
-                Text(viewModel.constructorName(for: standing.constructorId))
-                    .font(GridPulseTheme.cardTitle)
-                    .foregroundStyle(.white)
-
-                Text("\(standing.wins) wins")
-                    .font(GridPulseTheme.caption)
-                    .foregroundStyle(GridPulseTheme.mutedText)
-            }
+            Text(standing.constructorId.replacingOccurrences(of: "_", with: " ").capitalized)
+                .font(GridPulseTypography.body)
+                .foregroundStyle(.gridOnSurface)
 
             Spacer()
 
-            Text("\(Int(standing.points))")
-                .font(.system(.title3, weight: .heavy, design: .rounded))
-                .foregroundStyle(.white)
+            VStack(alignment: .trailing) {
+                Text("\(standing.points, specifier: "%.0f")")
+                    .font(GridPulseTypography.mono)
+                    .foregroundStyle(.gridOnSurface)
 
-            Text("pts")
-                .font(GridPulseTheme.caption)
-                .foregroundStyle(GridPulseTheme.mutedText)
+                if standing.wins > 0 {
+                    Text("\(standing.wins) win\(standing.wins > 1 ? "s" : "")")
+                        .font(GridPulseTypography.caption)
+                        .foregroundStyle(.gridWarning)
+                }
+            }
         }
-        .padding(.vertical, 4)
+        .padding(.vertical, GridPulseSpacing.xs)
     }
 }
 
-// MARK: - Preview
 #Preview {
-    NavigationStack {
-        ConstructorStandingsView()
-    }
-    .preferredColorScheme(.dark)
+    ConstructorStandingsView()
+        .modelContainer(for: [Constructor.self, CacheEntry.self])
 }

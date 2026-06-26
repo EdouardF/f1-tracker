@@ -1,165 +1,138 @@
 import SwiftUI
 
 struct RaceWeekendView: View {
-    @State private var viewModel = RaceViewModel()
     let race: Race
+    @State private var selectedSession: SessionType = .race
 
     var body: some View {
         ScrollView {
-            VStack(spacing: GridPulseTheme.paddingMedium) {
-                // MARK: - Race Header
-                GlassCard {
-                    VStack(alignment: .leading, spacing: GridPulseTheme.paddingSmall) {
-                        Text("RACE WEEKEND")
-                            .font(GridPulseTheme.caption)
-                            .foregroundStyle(GridPulseTheme.accent)
+            VStack(spacing: GridPulseSpacing.md) {
+                // Race Weekend Header
+                raceWeekendHeader
 
-                        Text(race.name)
-                            .font(GridPulseTheme.heroTitle)
-                            .foregroundStyle(.white)
+                // Session Selector
+                sessionPicker
 
-                        Text(race.circuitId.replacingOccurrences(of: "_", with: " ").capitalized)
-                            .font(GridPulseTheme.body)
-                            .foregroundStyle(GridPulseTheme.mutedText)
-                    }
-                }
-
-                // MARK: - Sessions Timeline
-                sessionsTimeline
-
-                // MARK: - Results (if available)
-                if !viewModel.results.isEmpty {
-                    resultsCard
-                }
-
-                // MARK: - Grid (if available)
-                if !viewModel.grid.isEmpty {
-                    gridCard
-                }
+                // Session Content
+                sessionContent
             }
-            .padding(.horizontal, GridPulseTheme.paddingMedium)
+            .padding()
         }
-        .background(GridPulseTheme.background)
-        .navigationTitle("Race Weekend")
+        .background(Color.gridBackground)
+        .navigationTitle(race.name)
         .navigationBarTitleDisplayMode(.inline)
     }
 
-    // MARK: - Sessions Timeline
-
-    private var sessionsTimeline: some View {
+    // MARK: - Header
+    private var raceWeekendHeader: some View {
         GlassCard {
-            VStack(alignment: .leading, spacing: GridPulseTheme.paddingSmall) {
-                Text("SESSIONS")
-                    .font(GridPulseTheme.caption)
-                    .foregroundStyle(GridPulseTheme.accent)
+            VStack(alignment: .leading, spacing: GridPulseSpacing.sm) {
+                Text(race.name)
+                    .font(GridPulseTypography.heroTitle)
+                    .foregroundStyle(.gridOnSurface)
 
-                if viewModel.sessions.isEmpty {
-                    Text("No session data available")
-                        .font(GridPulseTheme.body)
-                        .foregroundStyle(GridPulseTheme.mutedText)
-                } else {
-                    ForEach(viewModel.sessions) { session in
-                        sessionRow(session: session)
-                    }
+                HStack {
+                    Label(race.circuitId.replacingOccurrences(of: "_", with: " ").capitalized, systemImage: "mappin.and.ellipse")
+                        .font(GridPulseTypography.caption)
+                        .foregroundStyle(.gridOnSurfaceSecondary)
+
+                    Spacer()
+
+                    Text(race.date, style: .date)
+                        .font(GridPulseTypography.caption)
+                        .foregroundStyle(.gridOnSurfaceSecondary)
                 }
             }
         }
     }
 
-    private func sessionRow(session: Session) -> some View {
-        HStack(spacing: 12) {
-            // Session type badge
-            Text(session.type.shortName)
-                .font(.system(.body, weight: .bold, design: .monospaced))
-                .foregroundStyle(session.type.isRace ? GridPulseTheme.accent : .white)
-                .frame(width: 56, alignment: .leading)
-
-            VStack(alignment: .leading, spacing: 2) {
-                Text(session.type.displayName)
-                    .font(GridPulseTheme.body)
-                    .foregroundStyle(.white)
-
-                Text(session.date, style: .date)
-                    .font(GridPulseTheme.caption)
-                    .foregroundStyle(GridPulseTheme.mutedText)
-            }
-
-            Spacer()
-
-            // Status indicator
-            if session.date > Date() {
-                Text("UPCOMING")
-                    .font(.system(size: 10, weight: .bold))
-                    .foregroundStyle(GridPulseTheme.accent)
-            } else {
-                Image(systemName: "checkmark.circle.fill")
-                    .foregroundStyle(GridPulseTheme.success)
-            }
-        }
-        .padding(.vertical, 4)
-    }
-
-    // MARK: - Results Card
-
-    private var resultsCard: some View {
-        GlassCard {
-            VStack(alignment: .leading, spacing: GridPulseTheme.paddingSmall) {
-                Text("RESULTS")
-                    .font(GridPulseTheme.caption)
-                    .foregroundStyle(GridPulseTheme.accent)
-
-                ForEach(viewModel.results.sorted(by: { ($0.position ?? 99) < ($1.position ?? 99) }).prefix(10)) { result in
-                    HStack {
-                        if let pos = result.position {
-                            PositionChip(position: pos, size: 28)
-                        }
-                        Text(result.broadcastName ?? "Driver")
-                            .font(GridPulseTheme.body)
-                            .foregroundStyle(.white)
-                        Spacer()
-                        if let gap = result.gapToLeader {
-                            GapView(gap: gap)
-                        }
-                    }
+    // MARK: - Session Picker
+    private var sessionPicker: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: GridPulseSpacing.sm) {
+                ForEach(SessionType.allCases, id: \.self) { session in
+                    sessionPill(session: session)
                 }
             }
         }
     }
 
-    // MARK: - Grid Card
+    private func sessionPill(session: SessionType) -> some View {
+        Button {
+            withAnimation(GridPulseAnimation.spring) {
+                selectedSession = session
+            }
+        } label: {
+            Text(session.shortName)
+                .font(GridPulseTypography.caption)
+                .foregroundStyle(selectedSession == session ? .white : .gridOnSurfaceSecondary)
+                .padding(.horizontal, GridPulseSpacing.sm)
+                .padding(.vertical, GridPulseSpacing.xs)
+                .background(
+                    selectedSession == session
+                        ? Color.gridAccent
+                        : Color.gridCard
+                )
+                .clipShape(Capsule())
+        }
+        .buttonStyle(.plain)
+    }
 
-    private var gridCard: some View {
+    // MARK: - Session Content
+    private var sessionContent: some View {
         GlassCard {
-            VStack(alignment: .leading, spacing: GridPulseTheme.paddingSmall) {
-                Text("STARTING GRID")
-                    .font(GridPulseTheme.caption)
-                    .foregroundStyle(GridPulseTheme.accent)
+            VStack(alignment: .leading, spacing: GridPulseSpacing.sm) {
+                Text(selectedSession.fullName)
+                    .font(GridPulseTypography.sectionTitle)
+                    .foregroundStyle(.gridOnSurface)
 
-                ForEach(viewModel.grid.sorted(by: { $0.position < $1.position }).prefix(10)) { entry in
-                    HStack {
-                        PositionChip(position: entry.position, size: 28)
-                        Text(entry.broadcastName ?? "Driver \(entry.driverNumber)")
-                            .font(GridPulseTheme.body)
-                            .foregroundStyle(.white)
-                        Spacer()
-                    }
-                }
+                Text("Session data will appear here")
+                    .font(GridPulseTypography.caption)
+                    .foregroundStyle(.gridOnSurfaceSecondary)
             }
         }
     }
 }
 
-// MARK: - Preview
+// MARK: - SessionType Extension
+extension SessionType {
+    var shortName: String {
+        switch self {
+        case .fp1: return "FP1"
+        case .fp2: return "FP2"
+        case .fp3: return "FP3"
+        case .qualifying: return "Q"
+        case .sprint: return "Sprint"
+        case .race: return "Race"
+        }
+    }
+
+    var fullName: String {
+        switch self {
+        case .fp1: return "Free Practice 1"
+        case .fp2: return "Free Practice 2"
+        case .fp3: return "Free Practice 3"
+        case .qualifying: return "Qualifying"
+        case .sprint: return "Sprint Race"
+        case .race: return "Grand Prix"
+        }
+    }
+
+    static var allCases: [SessionType] {
+        [.fp1, .fp2, .fp3, .qualifying, .sprint, .race]
+    }
+}
+
 #Preview {
     NavigationStack {
         RaceWeekendView(race: Race(
-            id: "2026-1",
-            name: "Bahrain Grand Prix",
-            circuitId: "bahrain",
+            id: "2026-5",
+            name: "Monaco Grand Prix",
+            circuitId: "monaco",
             date: Date(),
+            sessions: [],
             season: 2026,
-            round: 1
+            round: 5
         ))
     }
-    .preferredColorScheme(.dark)
 }

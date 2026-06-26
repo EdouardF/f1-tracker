@@ -1,41 +1,57 @@
 import SwiftUI
 
-/// Glass card with Liquid Glass effect for iOS 26+
 struct GlassCard<Content: View>: View {
-    let content: Content
     let cornerRadius: CGFloat
+    let padding: CGFloat
+    @ViewBuilder let content: () -> Content
 
     init(
-        cornerRadius: CGFloat = GridPulseTheme.cornerRadiusMedium,
-        @ViewBuilder content: () -> Content
+        cornerRadius: CGFloat = GridPulseSpacing.md,
+        padding: CGFloat = GridPulseSpacing.md,
+        @ViewBuilder content: @escaping () -> Content
     ) {
         self.cornerRadius = cornerRadius
-        self.content = content()
+        self.padding = padding
+        self.content = content
     }
 
     var body: some View {
-        content
-            .padding(GridPulseTheme.paddingMedium)
-            .background {
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .fill(.ultraThinMaterial)
-            }
-            .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+        content()
+            .padding(padding)
+            #if compiler(>=6.2)
+            .glassEffect(in: .rect(cornerRadius: cornerRadius))
+            #else
+            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: cornerRadius))
+            #endif
     }
 }
 
-// MARK: - Glass Effect Modifier
-extension View {
-    /// Applies Liquid Glass effect on iOS 26+, falls back to .ultraThinMaterial on older versions
-    @ViewBuilder
-    func glassEffect() -> some View {
-        if #available(iOS 26, *) {
-            self.glassEffect(in: .rect(cornerRadius: GridPulseTheme.cornerRadiusMedium))
-        } else {
-            self.background(
-                RoundedRectangle(cornerRadius: GridPulseTheme.cornerRadiusMedium)
-                    .fill(.ultraThinMaterial)
-            )
+// MARK: - Preview
+#Preview {
+    ZStack {
+        Color.black.ignoresSafeArea()
+
+        VStack(spacing: GridPulseSpacing.md) {
+            GlassCard {
+                VStack(alignment: .leading, spacing: GridPulseSpacing.xs) {
+                    Text("Monaco Grand Prix")
+                        .font(GridPulseTypography.sectionTitle)
+                    Text("Round 8 • May 25, 2026")
+                        .font(GridPulseTypography.caption)
+                        .foregroundStyle(.gridOnSurfaceSecondary)
+                }
+            }
+
+            GlassCard(cornerRadius: GridPulseSpacing.sm) {
+                HStack {
+                    Text("P1")
+                        .font(GridPulseTypography.mono)
+                        .foregroundStyle(PositionStyle.forPosition(1).color)
+                    Text("VER")
+                        .font(GridPulseTypography.body)
+                }
+            }
         }
+        .padding()
     }
 }

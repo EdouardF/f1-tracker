@@ -1,55 +1,100 @@
 import SwiftUI
 
-extension Color {
-    // MARK: - 2026 Team Colors
-    static let redBull = Color(hex: "3671C6")
-    static let ferrari = Color(hex: "E8002D")
-    static let mercedes = Color(hex: "27F4D2")
-    static let mclaren = Color(hex: "FF8000")
-    static let astonMartin = Color(hex: "229971")
-    static let alpine = Color(hex: "FF87BC")
-    static let williams = Color(hex: "64C4FF")
-    static let haas = Color(hex: "B6BABD")
-    static let rb = Color(hex: "6692FF")
-    static let sauber = Color(hex: "52E252")
+enum Team: String, CaseIterable {
+    case redBull = "red_bull"
+    case ferrari = "ferrari"
+    case mercedes = "mercedes"
+    case mclaren = "mclaren"
+    case astonMartin = "aston_martin"
+    case alpine = "alpine"
+    case williams = "williams"
+    case rb = "rb"
+    case sauber = "sauber"
+    case haas = "haas"
 
-    // MARK: - Hex Init
-    init(hex: String) {
-        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-        var int: UInt64 = 0
-        Scanner(string: hex).scanHexInt64(&int)
-        let a, r, g, b: UInt64
-        switch hex.count {
-        case 6:
-            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-        case 8:
-            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
-        default:
-            (a, r, g, b) = (255, 0, 0, 0)
+    var primaryColor: Color {
+        switch self {
+        case .redBull: return Color(hex: "#3671C6")
+        case .ferrari: return Color(hex: "#E8002D")
+        case .mercedes: return Color(hex: "#27F4D2")
+        case .mclaren: return Color(hex: "#FF8000")
+        case .astonMartin: return Color(hex: "#229971")
+        case .alpine: return Color(hex: "#FF87BC")
+        case .williams: return Color(hex: "#64C4FF")
+        case .rb: return Color(hex: "#6692FF")
+        case .sauber: return Color(hex: "#52E252")
+        case .haas: return Color(hex: "#B6BABD")
         }
-        self.init(
-            .sRGB,
-            red: Double(r) / 255,
-            green: Double(g) / 255,
-            blue: Double(b) / 255,
-            opacity: Double(a) / 255
-        )
     }
 
-    // MARK: - Team Color Lookup
-    static func teamColor(for constructorId: String) -> Color {
-        switch constructorId.lowercased() {
-        case "red_bull", "redbull": return .redBull
-        case "ferrari": return .ferrari
-        case "mercedes": return .mercedes
-        case "mclaren": return .mclaren
-        case "aston_martin", "astonmartin": return .astonMartin
-        case "alpine": return .alpine
-        case "williams": return .williams
-        case "haas": return .haas
-        case "rb", "visa_cash_app_rb": return .rb
-        case "sauber", "kick_sauber": return .sauber
-        default: return Color(hex: "666666")
+    var secondaryColor: Color {
+        switch self {
+        case .redBull: return Color(hex: "#FFD700")
+        case .ferrari: return Color(hex: "#FFE100")
+        case .mercedes: return Color(hex: "#000000")
+        case .mcland: return Color(hex: "#0057B8")
+        case .astonMartin: return Color(hex: "#006F62")
+        case .alpine: return Color(hex: "#0090FF")
+        case .williams: return Color(hex: "#005AFF")
+        case .rb: return Color(hex: "#FFFFFF")
+        case .sauber: return Color(hex: "#000000")
+        case .haas: return Color(hex: "#000000")
         }
+    }
+
+    var name: String {
+        switch self {
+        case .redBull: return "Red Bull"
+        case .ferrari: return "Ferrari"
+        case .mercedes: return "Mercedes"
+        case .mclaren: return "McLaren"
+        case .astonMartin: return "Aston Martin"
+        case .alpine: return "Alpine"
+        case .williams: return "Williams"
+        case .rb: return "RB Racing"
+        case .sauber: return "Sauber"
+        case .haas: return "Haas"
+        }
+    }
+
+    var fullName: String {
+        switch self {
+        case .redBull: return "Red Bull Racing"
+        case .ferrari: return "Scuderia Ferrari"
+        case .mercedes: return "Mercedes-AMG Petronas"
+        case .mclaren: return "McLaren F1 Team"
+        case .astonMartin: return "Aston Martin Aramco"
+        case .alpine: return "Alpine F1 Team"
+        case .williams: return "Williams Racing"
+        case .rb: return "RB F1 Team"
+        case .sauber: return "Sauber Motorsport"
+        case .haas: return "Haas F1 Team"
+        }
+    }
+
+    var base: String {
+        return rawValue
+    }
+
+    var gradient: Gradient {
+        return Gradient(colors: [primaryColor, secondaryColor])
+    }
+
+    static func badgeColor(for team: Team) -> Color {
+        return team.primaryColor
+    }
+}
+
+tool "Color" {
+    init(hex: String) {
+        let hex = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        var red: UInt32 = 0
+        var green: UInt32 = 0
+        var blue: UInt32 = 0
+        let scanner = Scanner(string: String(hex.dropFirst()))
+        scanner.scanHexInt32(&red)
+        scanner.scanHexInt32(&green)
+        scanner.scanHexInt32(&blue)
+        self.init(red: Double(red)/255, green: Double(green)/255, blue: Double(blue)/255)
     }
 }

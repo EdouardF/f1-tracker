@@ -1,95 +1,83 @@
 import SwiftUI
+import SwiftData
 
 struct DriverDetailView: View {
-    let standing: DriverStanding
-    let viewModel: StandingsViewModel
+    let driverId: String
+    let constructorId: String
+    let driverCode: String
+    let driverNumber: Int
+    @State private var viewModel = StandingsViewModel()
 
     var body: some View {
         ScrollView {
-            VStack(spacing: GridPulseTheme.paddingMedium) {
-                // MARK: - Driver Header
-                GlassCard {
-                    VStack(spacing: GridPulseTheme.paddingSmall) {
-                        // Position badge
-                        PositionChip(position: standing.position, size: 56)
+            VStack(spacing: GridPulseSpacing.md) {
+                // Driver Header
+                driverHeader
 
-                        Text(viewModel.driverName(for: standing.driverId))
-                            .font(GridPulseTheme.heroTitle)
-                            .foregroundStyle(.white)
-
-                        Text(standing.constructorId.replacingOccurrences(of: "_", with: " ").capitalized)
-                            .font(GridPulseTheme.sectionTitle)
-                            .foregroundStyle(Color.teamColor(for: standing.constructorId))
-                    }
-                }
-
-                // MARK: - Stats
-                GlassCard {
-                    VStack(spacing: GridPulseTheme.paddingMedium) {
-                        StatRow(label: "Points", value: "\(Int(standing.points))")
-                        StatRow(label: "Wins", value: "\(standing.wins)")
-                        StatRow(label: "Position", value: "P\(standing.position)")
-                    }
-                }
-
-                // MARK: - Team Color Badge
-                GlassCard {
-                    HStack {
-                        Text("Team")
-                            .font(GridPulseTheme.body)
-                            .foregroundStyle(GridPulseTheme.mutedText)
-
-                        Spacer()
-
-                        TeamColorBadge(
-                            driverCode: standing.driverId.prefix(3).uppercased(),
-                            teamColor: Color.teamColor(for: standing.constructorId)
-                        )
-                    }
-                }
+                // Stats would go here (needs API data)
+                statsPlaceholder
             }
-            .padding(.horizontal, GridPulseTheme.paddingMedium)
+            .padding()
         }
-        .background(GridPulseTheme.background)
-        .navigationTitle(viewModel.driverName(for: standing.driverId))
+        .background(Color.gridBackground)
+        .navigationTitle(driverCode)
         .navigationBarTitleDisplayMode(.inline)
     }
-}
 
-// MARK: - Stat Row
-private struct StatRow: View {
-    let label: String
-    let value: String
+    // MARK: - Header
+    private var driverHeader: some View {
+        GlassCard {
+            HStack(spacing: GridPulseSpacing.md) {
+                TeamColorBadge(
+                    constructorId: constructorId,
+                    driverCode: driverCode,
+                    driverNumber: driverNumber,
+                    size: 64
+                )
 
-    var body: some View {
-        HStack {
-            Text(label)
-                .font(GridPulseTheme.body)
-                .foregroundStyle(GridPulseTheme.mutedText)
+                VStack(alignment: .leading, spacing: GridPulseSpacing.xs) {
+                    Text(driverId.replacingOccurrences(of: "_", with: " "))
+                        .font(GridPulseTypography.heroTitle)
+                        .foregroundStyle(.gridOnSurface)
 
-            Spacer()
+                    Text(constructorId.replacingOccurrences(of: "_", with: " ").capitalized)
+                        .font(GridPulseTypography.caption)
+                        .foregroundStyle(.gridOnSurfaceSecondary)
+                }
 
-            Text(value)
-                .font(.system(.body, weight: .bold, design: .rounded))
-                .foregroundStyle(.white)
+                Spacer()
+
+                Text("#\(driverNumber)")
+                    .font(GridPulseTypography.heroTitle)
+                    .foregroundStyle(Color.teamColor(for: constructorId))
+            }
+        }
+    }
+
+    // MARK: - Stats Placeholder
+    private var statsPlaceholder: some View {
+        GlassCard {
+            VStack(alignment: .leading, spacing: GridPulseSpacing.sm) {
+                Label("SEASON STATS", systemImage: "chart.bar")
+                    .font(GridPulseTypography.caption)
+                    .foregroundStyle(.gridAccent)
+
+                Text("Stats will be available once the 2026 season starts")
+                    .font(GridPulseTypography.caption)
+                    .foregroundStyle(.gridOnSurfaceSecondary)
+            }
         }
     }
 }
 
-// MARK: - Preview
 #Preview {
     NavigationStack {
         DriverDetailView(
-            standing: DriverStanding(
-                id: "verstappen",
-                driverId: "verstappen",
-                position: 1,
-                points: 25,
-                wins: 1,
-                constructorId: "red_bull"
-            ),
-            viewModel: StandingsViewModel()
+            driverId: "max_verstappen",
+            constructorId: "red_bull",
+            driverCode: "VER",
+            driverNumber: 1
         )
     }
-    .preferredColorScheme(.dark)
+    .modelContainer(for: [Driver.self, CacheEntry.self])
 }

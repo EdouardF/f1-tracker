@@ -5,34 +5,29 @@ import Observation
 final class StandingsViewModel {
     var driverStandings: [DriverStanding] = []
     var constructorStandings: [ConstructorStanding] = []
-    var drivers: [Driver] = []
-    var constructors: [Constructor] = []
+    var selectedTab: StandingsTab = .drivers
+    var selectedSeason: Int = 2026
     var isLoading = false
     var errorMessage: String?
-    var selectedSeason: Int = 2026
+
+    enum StandingsTab: String, CaseIterable {
+        case drivers = "Drivers"
+        case constructors = "Constructors"
+    }
 
     private let jolpica = JolpicaService.shared
-    private let openF1 = OpenF1Service.shared
+    private let cache = CacheService.shared
 
     // MARK: - Load Standings
-
-    func loadStandings() async {
+    func loadData() async {
         isLoading = true
         errorMessage = nil
 
-        async let driverTask = jolpica.fetchDriverStandings(season: selectedSeason)
-        async let constructorTask = jolpica.fetchConstructorStandings(season: selectedSeason)
-        async let driversTask = jolpica.fetchDrivers(season: selectedSeason)
-        async let constructorsTask = jolpica.fetchConstructors(season: selectedSeason)
-
         do {
-            let (driverResults, constructorResults, driversList, constructorsList) = try await (
-                driverTask, constructorTask, driversTask, constructorsTask
-            )
-            self.driverStandings = driverResults
-            self.constructorStandings = constructorResults
-            self.drivers = driversList
-            self.constructors = constructorsList
+            async let driversTask = loadDriverStandings()
+            async let constructorsTask = loadConstructorStandings()
+            try await driversTask
+            try await constructorsTask
         } catch {
             errorMessage = error.localizedDescription
         }
@@ -40,25 +35,40 @@ final class StandingsViewModel {
         isLoading = false
     }
 
-    // MARK: - Helpers
-
-    func driverName(for driverId: String) -> String {
-        drivers.first { $0.id == driverId }?.displayName ?? driverId
-    }
-
-    func constructorName(for constructorId: String) -> String {
-        constructors.first { $0.id == constructorId }?.name ?? constructorId
-    }
-
-    func teamColor(for driverId: String) -> String {
-        guard let standing = driverStandings.first(where: { $0.driverId == driverId }),
-              let driver = drivers.first(where: { $0.id == driverId } ?? drivers.first(where: { $0.id == standing.driverId })) else {
-            return "#666666"
+    private func loadDriverStandings() async throws {
+        driverStandings = try await cache.loadOrFetch(
+            [DriverStanding].self,
+            forKey: CacheKey.driverStandings(season: selectedSeason),
+            ttl: .standings
+        ) {
+            try await self.jolpica.fetchDriverStandings(season: self.selectedSeason)
         }
-        return driver.teamColor
     }
 
-    func teamColorHex(for constructorId: String) -> String {
-        constructors.first { $0.id == constructorId }?.color ?? "#666666"
+    private func loadConstructorStandings() async throws {
+        constructorStandings = try await cache.loadOrFetch(
+            [ConstructorStanding].self,
+            forKey: CacheKey.constructorStandings(season: selectedSeason),
+            ttl: .standings
+        ) {
+            try await self.jolpica.fetchConstructorStandings(season: self.selectedSeason)
+        }
+    }
+
+    // MARK: - Driver Team Color
+    func teamColor(for constructorId: String) -> Color {
+        Color.teamColor(for: constructorId)
+    }
+
+    // MARK: - Change Season
+    func changeSeason(to year: Int) async {
+        selectedSeason = year
+        await loadData()
+    }
+
+    // MARK: - Refresh
+    func refresh() async {
+        try? cache.invalidateAll()
+        await loadData()
     }
 }
