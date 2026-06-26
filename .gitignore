@@ -1,6 +1,9 @@
 # Xcode
 build/
 DerivedData/
+# XcodeGen: project.yml is source of truth for .xcodeproj
+# We commit .xcodeproj for Xcode Cloud CI compatibility
+# Regenerate with: xcodegen generate
 *.xcodeproj/project.xcworkspace/xcuserdata/
 *.xcodeproj/xcuserdata/
 *.xcworkspace/xcuserdata/
@@ -19,7 +22,7 @@ xcuserdata/
 Packages/
 Package.pins
 Package.resolved
-*.xcodeproj/
+
 
 # CocoaPods
 Pods/

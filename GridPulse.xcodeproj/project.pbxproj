@@ -1,0 +1,681 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		02769992BA564DBF4D753CD7 /* GlassCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19D29667D20DC09D7ED333E /* GlassCard.swift */; };
+		06C0A51302FB5E0C96F85EBA /* LapTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8126742462A9A9751B36B4A /* LapTimeView.swift */; };
+		1480103C921588FBFE09BC37 /* JolpicaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F299508579A1C8160E5052 /* JolpicaService.swift */; };
+		232C99969A67BB5FF054F073 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72042C28D0A25FD409B0049 /* HomeViewModel.swift */; };
+		2E05352AA80EE3CBC7492B7A /* Constructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0DAFCFD51771E036E5B52A /* Constructor.swift */; };
+		32F9773A67E2BE5901803DCF /* PositionChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FCC16AF13815A849C025D3 /* PositionChip.swift */; };
+		45D3AECF3835163F36255467 /* Circuit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A4C92F44E492F17BD02AC /* Circuit.swift */; };
+		565F9C09C4FB0B79A73608C1 /* RaceWeekendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC37BB8AA0DF06C297D3593 /* RaceWeekendView.swift */; };
+		64D87BF35B449407FE8517E7 /* DriverStandingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91E470E2F9DAB22D5239BC4 /* DriverStandingsView.swift */; };
+		654639D56C3EDB442417D1FD /* StandingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAF757DB9C885FF41275227 /* StandingsViewModel.swift */; };
+		982B3DA7FA57C8CADB0358A4 /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07A7FC0DD5439AFE29B63E5 /* CacheService.swift */; };
+		9C291A6D87341128CB36CF8E /* RaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719684313A3CF0666E8004E /* RaceViewModel.swift */; };
+		A221EE963C353BAFE3525584 /* TeamColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94577FCDE5BFC0A5045F446B /* TeamColors.swift */; };
+		A2D0CB45C3A309FEE857C389 /* DriverDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6D30D0D9D22EA627F003EE /* DriverDetailView.swift */; };
+		A9A30649EB31CE39D34744F9 /* Standing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E473E31EC6D5E1B6BE291E7A /* Standing.swift */; };
+		AC3F9D0C79F41C5643D6A8E6 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 6755080A4370A6E17F41CF97 /* Localizable.xcstrings */; };
+		B073D89BB01CFD9ED51A59F8 /* GridPulseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9115D0F709EE852C58DCAAF2 /* GridPulseTests.swift */; };
+		B22142AD703CA3DDD4F09B33 /* GridPulseTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF31C1B5054AC520B539E72 /* GridPulseTheme.swift */; };
+		B595B4B16E92DEE8A720F8DD /* TeamColorBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3985D4885A001C255C736F06 /* TeamColorBadge.swift */; };
+		BDEEF591CA58D6E2BB9666C9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAFCBAE6E4CD8D350AE4577 /* SettingsView.swift */; };
+		C2260185EB31204E230B8062 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9202682A76F1F970C6E8F644 /* ScheduleView.swift */; };
+		C75C87235D0EB78ED3C0226A /* ConstructorStandingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E831C512A964FB30ADFF9349 /* ConstructorStandingsView.swift */; };
+		C867A4E9F21AEC1487758B4A /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E793F5EFB151405F56D9E6 /* Session.swift */; };
+		C90BA6F698AA65D2EB8053E6 /* RaceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936101E606C125612BC17B4D /* RaceDetailView.swift */; };
+		D1721736CA124E9DB64531E1 /* Driver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1A440BC1176626D2E82FF0 /* Driver.swift */; };
+		D3333CD1010089E1CA2B8508 /* GridPulseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3861A0090D1050822B7DD7AB /* GridPulseApp.swift */; };
+		D55F2DDDBD4B334305842547 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60CB3E6235B0317B831B27A /* HomeView.swift */; };
+		D584759002F4C8B23F3A58CB /* OpenF1Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1874ECBEB7C1DBC6D245CD /* OpenF1Service.swift */; };
+		DA1793EE986E54539C48AA62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 519B8614BE2780451B6710C4 /* Assets.xcassets */; };
+		E16789F5DA31C12D2E0F99C0 /* ScheduleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38405F8AEAC4FB9A8AB8AD5F /* ScheduleViewModel.swift */; };
+		E177199DAFD68E5B0EBA7BD3 /* Race.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263D21F3B13DFCB427ABD6F4 /* Race.swift */; };
+		E80F80B7217612C88E903ECE /* LapData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A4878FCA4E611FD2152B70 /* LapData.swift */; };
+		F82A0AF2A6C5554F34FE4A97 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BA1FD687D57EA063020A0C /* ContentView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		67818B486BAF526CFC0555E3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15C953D2C9C32C9B3C7CA7C3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 790F98CF62F625AECE5BE6F2;
+			remoteInfo = GridPulse;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		03FCC16AF13815A849C025D3 /* PositionChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionChip.swift; sourceTree = "<group>"; };
+		0719684313A3CF0666E8004E /* RaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceViewModel.swift; sourceTree = "<group>"; };
+		08BA1FD687D57EA063020A0C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		0C3A4C92F44E492F17BD02AC /* Circuit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Circuit.swift; sourceTree = "<group>"; };
+		263D21F3B13DFCB427ABD6F4 /* Race.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Race.swift; sourceTree = "<group>"; };
+		2E1A440BC1176626D2E82FF0 /* Driver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Driver.swift; sourceTree = "<group>"; };
+		38405F8AEAC4FB9A8AB8AD5F /* ScheduleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewModel.swift; sourceTree = "<group>"; };
+		3861A0090D1050822B7DD7AB /* GridPulseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridPulseApp.swift; sourceTree = "<group>"; };
+		3985D4885A001C255C736F06 /* TeamColorBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamColorBadge.swift; sourceTree = "<group>"; };
+		39A4878FCA4E611FD2152B70 /* LapData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LapData.swift; sourceTree = "<group>"; };
+		519B8614BE2780451B6710C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5FAFCBAE6E4CD8D350AE4577 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		6755080A4370A6E17F41CF97 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		6789DDCE7B3EF5C56453AA35 /* GridPulse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GridPulse.entitlements; sourceTree = "<group>"; };
+		6A0DAFCFD51771E036E5B52A /* Constructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constructor.swift; sourceTree = "<group>"; };
+		6BC37BB8AA0DF06C297D3593 /* RaceWeekendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceWeekendView.swift; sourceTree = "<group>"; };
+		6F5E38DB6812637F9C6F346D /* GridPulse-Tests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = "GridPulse-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7CADA839101E4542B9DE9B61 /* GridPulse.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = GridPulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		88F299508579A1C8160E5052 /* JolpicaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JolpicaService.swift; sourceTree = "<group>"; };
+		9115D0F709EE852C58DCAAF2 /* GridPulseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridPulseTests.swift; sourceTree = "<group>"; };
+		9202682A76F1F970C6E8F644 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
+		936101E606C125612BC17B4D /* RaceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceDetailView.swift; sourceTree = "<group>"; };
+		94577FCDE5BFC0A5045F446B /* TeamColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamColors.swift; sourceTree = "<group>"; };
+		9DF31C1B5054AC520B539E72 /* GridPulseTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridPulseTheme.swift; sourceTree = "<group>"; };
+		A8126742462A9A9751B36B4A /* LapTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LapTimeView.swift; sourceTree = "<group>"; };
+		B60CB3E6235B0317B831B27A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		BE1874ECBEB7C1DBC6D245CD /* OpenF1Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenF1Service.swift; sourceTree = "<group>"; };
+		BF6D30D0D9D22EA627F003EE /* DriverDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverDetailView.swift; sourceTree = "<group>"; };
+		C19D29667D20DC09D7ED333E /* GlassCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassCard.swift; sourceTree = "<group>"; };
+		D0E793F5EFB151405F56D9E6 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		D72042C28D0A25FD409B0049 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		E473E31EC6D5E1B6BE291E7A /* Standing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Standing.swift; sourceTree = "<group>"; };
+		E831C512A964FB30ADFF9349 /* ConstructorStandingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructorStandingsView.swift; sourceTree = "<group>"; };
+		E91E470E2F9DAB22D5239BC4 /* DriverStandingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverStandingsView.swift; sourceTree = "<group>"; };
+		EDAF757DB9C885FF41275227 /* StandingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingsViewModel.swift; sourceTree = "<group>"; };
+		F07A7FC0DD5439AFE29B63E5 /* CacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheService.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0D260735B31A28A0D65434CA = {
+			isa = PBXGroup;
+			children = (
+				88CF563A4108982E60271627 /* GridPulse-iOS */,
+				0F4A9F820B7DECBB1A12E3B9 /* GridPulse-Tests */,
+				56E7AC21C693AB86BA6EA464 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0F4A9F820B7DECBB1A12E3B9 /* GridPulse-Tests */ = {
+			isa = PBXGroup;
+			children = (
+				84B49473FA4460E6EF4FBF9B /* IntegrationTests */,
+				EABBF9EC28141B3118334FB3 /* UITests */,
+				86F8B18FA7592C782CCB22C5 /* UnitTests */,
+				9115D0F709EE852C58DCAAF2 /* GridPulseTests.swift */,
+			);
+			path = "GridPulse-Tests";
+			sourceTree = "<group>";
+		};
+		24B4FFF31FE8E6E9400451B0 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				D72042C28D0A25FD409B0049 /* HomeViewModel.swift */,
+				0719684313A3CF0666E8004E /* RaceViewModel.swift */,
+				38405F8AEAC4FB9A8AB8AD5F /* ScheduleViewModel.swift */,
+				EDAF757DB9C885FF41275227 /* StandingsViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		49248AC6685E3D292A4DD28A /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				C19D29667D20DC09D7ED333E /* GlassCard.swift */,
+				A8126742462A9A9751B36B4A /* LapTimeView.swift */,
+				03FCC16AF13815A849C025D3 /* PositionChip.swift */,
+				3985D4885A001C255C736F06 /* TeamColorBadge.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		51A9A1099123B1626D5A2FA7 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				5FAFCBAE6E4CD8D350AE4577 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		55776B623933E94BA2765BD1 /* Race */ = {
+			isa = PBXGroup;
+			children = (
+				6BC37BB8AA0DF06C297D3593 /* RaceWeekendView.swift */,
+			);
+			path = Race;
+			sourceTree = "<group>";
+		};
+		56E7AC21C693AB86BA6EA464 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6F5E38DB6812637F9C6F346D /* GridPulse-Tests.xctest */,
+				7CADA839101E4542B9DE9B61 /* GridPulse.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7A170A6A8B38D23D909419AF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				519B8614BE2780451B6710C4 /* Assets.xcassets */,
+				6789DDCE7B3EF5C56453AA35 /* GridPulse.entitlements */,
+				6755080A4370A6E17F41CF97 /* Localizable.xcstrings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		84B49473FA4460E6EF4FBF9B /* IntegrationTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = IntegrationTests;
+			sourceTree = "<group>";
+		};
+		85F4F8076DA438951C9219A6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0C3A4C92F44E492F17BD02AC /* Circuit.swift */,
+				6A0DAFCFD51771E036E5B52A /* Constructor.swift */,
+				2E1A440BC1176626D2E82FF0 /* Driver.swift */,
+				39A4878FCA4E611FD2152B70 /* LapData.swift */,
+				263D21F3B13DFCB427ABD6F4 /* Race.swift */,
+				D0E793F5EFB151405F56D9E6 /* Session.swift */,
+				E473E31EC6D5E1B6BE291E7A /* Standing.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		86F8B18FA7592C782CCB22C5 /* UnitTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UnitTests;
+			sourceTree = "<group>";
+		};
+		88CF563A4108982E60271627 /* GridPulse-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				8B8BA5F7B25871FCF91EB4E7 /* App */,
+				9869D6573E679F69995D3BF7 /* Design */,
+				85F4F8076DA438951C9219A6 /* Models */,
+				7A170A6A8B38D23D909419AF /* Resources */,
+				B7113B4F1AE6783344147E6B /* Services */,
+				24B4FFF31FE8E6E9400451B0 /* ViewModels */,
+				E2CB66E6139A72BFA03DBE34 /* Views */,
+			);
+			path = "GridPulse-iOS";
+			sourceTree = "<group>";
+		};
+		8B8BA5F7B25871FCF91EB4E7 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				08BA1FD687D57EA063020A0C /* ContentView.swift */,
+				3861A0090D1050822B7DD7AB /* GridPulseApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		8E8E699C80BA0AF25C012F62 /* Standings */ = {
+			isa = PBXGroup;
+			children = (
+				E831C512A964FB30ADFF9349 /* ConstructorStandingsView.swift */,
+				BF6D30D0D9D22EA627F003EE /* DriverDetailView.swift */,
+				E91E470E2F9DAB22D5239BC4 /* DriverStandingsView.swift */,
+			);
+			path = Standings;
+			sourceTree = "<group>";
+		};
+		9869D6573E679F69995D3BF7 /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				49248AC6685E3D292A4DD28A /* Components */,
+				9DF31C1B5054AC520B539E72 /* GridPulseTheme.swift */,
+				94577FCDE5BFC0A5045F446B /* TeamColors.swift */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
+		B7113B4F1AE6783344147E6B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F07A7FC0DD5439AFE29B63E5 /* CacheService.swift */,
+				88F299508579A1C8160E5052 /* JolpicaService.swift */,
+				BE1874ECBEB7C1DBC6D245CD /* OpenF1Service.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		D880B7EEA55C3969BA4FA299 /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				936101E606C125612BC17B4D /* RaceDetailView.swift */,
+				9202682A76F1F970C6E8F644 /* ScheduleView.swift */,
+			);
+			path = Schedule;
+			sourceTree = "<group>";
+		};
+		DA04244A5E6E94DC83473F0A /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				B60CB3E6235B0317B831B27A /* HomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		E2CB66E6139A72BFA03DBE34 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DA04244A5E6E94DC83473F0A /* Home */,
+				55776B623933E94BA2765BD1 /* Race */,
+				D880B7EEA55C3969BA4FA299 /* Schedule */,
+				51A9A1099123B1626D5A2FA7 /* Settings */,
+				8E8E699C80BA0AF25C012F62 /* Standings */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		EABBF9EC28141B3118334FB3 /* UITests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1C7BB8048205920A4CC69BE8 /* GridPulse-Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A14ED5CD62CBAD8D96EAD348 /* Build configuration list for PBXNativeTarget "GridPulse-Tests" */;
+			buildPhases = (
+				BEDB3D3E4B9A1F9037AC3A44 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4802A3F0E7A0D6D9AAD6D4A1 /* PBXTargetDependency */,
+			);
+			name = "GridPulse-Tests";
+			packageProductDependencies = (
+			);
+			productName = "GridPulse-Tests";
+			productReference = 6F5E38DB6812637F9C6F346D /* GridPulse-Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		790F98CF62F625AECE5BE6F2 /* GridPulse */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4BA8C566BF333E5C6A7A7A1C /* Build configuration list for PBXNativeTarget "GridPulse" */;
+			buildPhases = (
+				6C844D8B1A34C60E1CDDB191 /* Sources */,
+				8A2FA40C9C56C56D6AD04755 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GridPulse;
+			packageProductDependencies = (
+			);
+			productName = GridPulse;
+			productReference = 7CADA839101E4542B9DE9B61 /* GridPulse.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		15C953D2C9C32C9B3C7CA7C3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					1C7BB8048205920A4CC69BE8 = {
+						DevelopmentTeam = Z2PN67EL4F;
+					};
+					790F98CF62F625AECE5BE6F2 = {
+						DevelopmentTeam = Z2PN67EL4F;
+					};
+				};
+			};
+			buildConfigurationList = 9152C2B62AF853A10FA65713 /* Build configuration list for PBXProject "GridPulse" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+				fr,
+			);
+			mainGroup = 0D260735B31A28A0D65434CA;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 56E7AC21C693AB86BA6EA464 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				790F98CF62F625AECE5BE6F2 /* GridPulse */,
+				1C7BB8048205920A4CC69BE8 /* GridPulse-Tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8A2FA40C9C56C56D6AD04755 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA1793EE986E54539C48AA62 /* Assets.xcassets in Resources */,
+				AC3F9D0C79F41C5643D6A8E6 /* Localizable.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6C844D8B1A34C60E1CDDB191 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				982B3DA7FA57C8CADB0358A4 /* CacheService.swift in Sources */,
+				45D3AECF3835163F36255467 /* Circuit.swift in Sources */,
+				2E05352AA80EE3CBC7492B7A /* Constructor.swift in Sources */,
+				C75C87235D0EB78ED3C0226A /* ConstructorStandingsView.swift in Sources */,
+				F82A0AF2A6C5554F34FE4A97 /* ContentView.swift in Sources */,
+				D1721736CA124E9DB64531E1 /* Driver.swift in Sources */,
+				A2D0CB45C3A309FEE857C389 /* DriverDetailView.swift in Sources */,
+				64D87BF35B449407FE8517E7 /* DriverStandingsView.swift in Sources */,
+				02769992BA564DBF4D753CD7 /* GlassCard.swift in Sources */,
+				D3333CD1010089E1CA2B8508 /* GridPulseApp.swift in Sources */,
+				B22142AD703CA3DDD4F09B33 /* GridPulseTheme.swift in Sources */,
+				D55F2DDDBD4B334305842547 /* HomeView.swift in Sources */,
+				232C99969A67BB5FF054F073 /* HomeViewModel.swift in Sources */,
+				1480103C921588FBFE09BC37 /* JolpicaService.swift in Sources */,
+				E80F80B7217612C88E903ECE /* LapData.swift in Sources */,
+				06C0A51302FB5E0C96F85EBA /* LapTimeView.swift in Sources */,
+				D584759002F4C8B23F3A58CB /* OpenF1Service.swift in Sources */,
+				32F9773A67E2BE5901803DCF /* PositionChip.swift in Sources */,
+				E177199DAFD68E5B0EBA7BD3 /* Race.swift in Sources */,
+				C90BA6F698AA65D2EB8053E6 /* RaceDetailView.swift in Sources */,
+				9C291A6D87341128CB36CF8E /* RaceViewModel.swift in Sources */,
+				565F9C09C4FB0B79A73608C1 /* RaceWeekendView.swift in Sources */,
+				C2260185EB31204E230B8062 /* ScheduleView.swift in Sources */,
+				E16789F5DA31C12D2E0F99C0 /* ScheduleViewModel.swift in Sources */,
+				C867A4E9F21AEC1487758B4A /* Session.swift in Sources */,
+				BDEEF591CA58D6E2BB9666C9 /* SettingsView.swift in Sources */,
+				A9A30649EB31CE39D34744F9 /* Standing.swift in Sources */,
+				654639D56C3EDB442417D1FD /* StandingsViewModel.swift in Sources */,
+				B595B4B16E92DEE8A720F8DD /* TeamColorBadge.swift in Sources */,
+				A221EE963C353BAFE3525584 /* TeamColors.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BEDB3D3E4B9A1F9037AC3A44 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B073D89BB01CFD9ED51A59F8 /* GridPulseTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4802A3F0E7A0D6D9AAD6D4A1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 790F98CF62F625AECE5BE6F2 /* GridPulse */;
+			targetProxy = 67818B486BAF526CFC0555E3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		429BAE2537B627E48F21CA20 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = Z2PN67EL4F;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		6240EB3BD99E54F009947D83 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "GridPulse-iOS/Resources/GridPulse.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "GridPulse-iOS/Resources/Info.plist";
+				INFOPLIST_KEY_NSAppTransportSecurity = "{\"NSAllowsArbitraryLoads\":false,\"NSAllowsLocalNetworking\":false}";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ef-engineering.gridpulse";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		7FC98B629CD4CBB6FA05171E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ef-engineering.gridpulse.tests";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GridPulse.app/GridPulse";
+			};
+			name = Debug;
+		};
+		D101CD45870EFC8ADD3A1B6E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = Z2PN67EL4F;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		E3546328018FDB0EC7712189 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "GridPulse-iOS/Resources/GridPulse.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "GridPulse-iOS/Resources/Info.plist";
+				INFOPLIST_KEY_NSAppTransportSecurity = "{\"NSAllowsArbitraryLoads\":false,\"NSAllowsLocalNetworking\":true,\"NSExceptionDomains\":{\"api.jolpica-f1.com\":{\"NSExceptionAllowsInsecureHTTPLoads\":true,\"NSIncludesSubdomains\":true},\"openf1.org\":{\"NSExceptionAllowsInsecureHTTPLoads\":true,\"NSIncludesSubdomains\":true},\"ergast.com\":{\"NSExceptionAllowsInsecureHTTPLoads\":true,\"NSIncludesSubdomains\":true}}}";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ef-engineering.gridpulse";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FA7194F498EBF2B24B75C345 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ef-engineering.gridpulse.tests";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GridPulse.app/GridPulse";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4BA8C566BF333E5C6A7A7A1C /* Build configuration list for PBXNativeTarget "GridPulse" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E3546328018FDB0EC7712189 /* Debug */,
+				6240EB3BD99E54F009947D83 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		9152C2B62AF853A10FA65713 /* Build configuration list for PBXProject "GridPulse" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				429BAE2537B627E48F21CA20 /* Debug */,
+				D101CD45870EFC8ADD3A1B6E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A14ED5CD62CBAD8D96EAD348 /* Build configuration list for PBXNativeTarget "GridPulse-Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7FC98B629CD4CBB6FA05171E /* Debug */,
+				FA7194F498EBF2B24B75C345 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 15C953D2C9C32C9B3C7CA7C3 /* Project object */;
+}
