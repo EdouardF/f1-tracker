@@ -2,20 +2,15 @@ import SwiftUI
 import SwiftData
 
 struct DriverDetailView: View {
-    let driverId: String
-    let constructorId: String
-    let driverCode: String
-    let driverNumber: Int
-    @State private var viewModel = StandingsViewModel()
+    let driver: DriverStanding
+    @State private var selectedSeason = 2026
 
     var body: some View {
         ScrollView {
             VStack(spacing: GridPulseSpacing.md) {
-                // Driver Header
                 driverHeader
-
-                // Stats would go here (needs API data)
-                statsPlaceholder
+                statsGrid
+                recentResults
             }
             .padding()
         }
@@ -24,45 +19,83 @@ struct DriverDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
 
+    // MARK: - Driver Code
+    private var driverCode: String {
+        let parts = driver.driverId.split(separator: "_")
+        if parts.count >= 2 {
+            return String(parts[1]).prefix(3).uppercased()
+        }
+        return driver.driverId.prefix(3).uppercased()
+    }
+
     // MARK: - Header
     private var driverHeader: some View {
         GlassCard {
             HStack(spacing: GridPulseSpacing.md) {
                 TeamColorBadge(
-                    constructorId: constructorId,
+                    constructorId: driver.constructorId,
                     driverCode: driverCode,
-                    driverNumber: driverNumber,
                     size: 64
                 )
 
                 VStack(alignment: .leading, spacing: GridPulseSpacing.xs) {
-                    Text(driverId.replacingOccurrences(of: "_", with: " "))
+                    Text(driver.driverId.replacingOccurrences(of: "_", with: " "))
                         .font(GridPulseTypography.heroTitle)
                         .foregroundStyle(.gridOnSurface)
 
-                    Text(constructorId.replacingOccurrences(of: "_", with: " ").capitalized)
+                    Text(driver.constructorId.replacingOccurrences(of: "_", with: " ").capitalized)
                         .font(GridPulseTypography.caption)
                         .foregroundStyle(.gridOnSurfaceSecondary)
                 }
 
                 Spacer()
 
-                Text("#\(driverNumber)")
-                    .font(GridPulseTypography.heroTitle)
-                    .foregroundStyle(Color.teamColor(for: constructorId))
+                PositionChip(position: driver.position, style: .circle)
             }
         }
     }
 
-    // MARK: - Stats Placeholder
-    private var statsPlaceholder: some View {
+    // MARK: - Stats Grid
+    private var statsGrid: some View {
         GlassCard {
             VStack(alignment: .leading, spacing: GridPulseSpacing.sm) {
                 Label("SEASON STATS", systemImage: "chart.bar")
                     .font(GridPulseTypography.caption)
                     .foregroundStyle(.gridAccent)
 
-                Text("Stats will be available once the 2026 season starts")
+                LazyVGrid(columns: [
+                    GridItem(.flexible()),
+                    GridItem(.flexible()),
+                    GridItem(.flexible())
+                ], spacing: GridPulseSpacing.md) {
+                    statItem(value: String(format: "%.0f", driver.points), label: "Points")
+                    statItem(value: "\(driver.wins)", label: "Wins")
+                    statItem(value: "P\(driver.position)", label: "Position")
+                }
+            }
+        }
+    }
+
+    private func statItem(value: String, label: String) -> some View {
+        VStack(spacing: GridPulseSpacing.xs) {
+            Text(value)
+                .font(GridPulseTypography.heroTitle)
+                .foregroundStyle(.gridOnSurface)
+            Text(label)
+                .font(GridPulseTypography.caption)
+                .foregroundStyle(.gridOnSurfaceSecondary)
+        }
+    }
+
+    // MARK: - Recent Results
+    private var recentResults: some View {
+        GlassCard {
+            VStack(alignment: .leading, spacing: GridPulseSpacing.sm) {
+                Label("RECENT RESULTS", systemImage: "flag.checkered")
+                    .font(GridPulseTypography.caption)
+                    .foregroundStyle(.gridAccent)
+
+                Text("Results will appear here during the season")
                     .font(GridPulseTypography.caption)
                     .foregroundStyle(.gridOnSurfaceSecondary)
             }
@@ -70,14 +103,17 @@ struct DriverDetailView: View {
     }
 }
 
+// MARK: - Preview
 #Preview {
     NavigationStack {
-        DriverDetailView(
+        DriverDetailView(driver: DriverStanding(
+            id: "verstappen",
             driverId: "max_verstappen",
-            constructorId: "red_bull",
-            driverCode: "VER",
-            driverNumber: 1
-        )
+            position: 1,
+            points: 25,
+            wins: 1,
+            constructorId: "red_bull"
+        ))
     }
     .modelContainer(for: [Driver.self, CacheEntry.self])
 }
