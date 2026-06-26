@@ -1,0 +1,40 @@
+# Xcode
+build/
+DerivedData/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcshareddata/xccheckpoints/
+*.xcworkspace/xcshareddata/xccheckpoints/
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.perspectivev3
+xcuserdata/
+*.moved-aside
+*.xcuserstate
+*.xccheckout
+
+# Swift Package Manager
+.build/
+Packages/
+Package.resolved
+
+# CocoaPods
+Pods/
+
+# Carthage
+Carthage/Build/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Misc
+*.swp
+*.lock
+*.log
